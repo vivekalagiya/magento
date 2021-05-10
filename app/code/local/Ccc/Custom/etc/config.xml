@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ccc_Custom>
+            <version>0.0.1</version>
+        </Ccc_Custom>
+    </modules>
+    <admin>
+        <routers>
+            <custom>
+                <use>admin</use>
+                <args>
+                    <module>Ccc_Custom</module>
+                    <frontName>Custom</frontName>
+                </args>
+            </custom>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <Custom custom="custom">
+                <title>Custom</title>
+                <children>
+                    <custom module="custom">
+                        <title>Manage Custom</title>
+                        <action>custom/adminhtml_custom</action>
+                    </custom>
+                </children>
+            </Custom>   
+        </menu>
+    </adminhtml>
+
+    <global>
+        <blocks>    
+            <ccc_custom>
+                <class>Ccc_Custom_Block</class>
+            </ccc_custom>
+            <ccc_custom_admin>
+                <class>Ccc_Custom_Block_Adminhtml</class>
+            </ccc_custom_admin>
+        </blocks>
+
+        <helpers>
+            <custom>
+                <class>Ccc_Custom_Helper_Custom</class>
+            </custom>
+        </helpers>
+
+         <models>
+            <ccc_custom>
+                <class>Ccc_Custom_Model</class>
+                <resourceModel>ccc_custom_resource</resourceModel>
+            </ccc_custom>
+           <ccc_custom_resource>
+                <class>Ccc_Custom_Model_Resource</class>
+                <entities>
+                    <data>
+                        <table>ccc_custom_data</table>
+                    </data>
+                </entities>
+            </ccc_custom_resource>
+        </models>
+
+        <resources>
+            <custom_setup>
+                <setup>
+                    <module>Ccc_Custom</module>
+                </setup>
+            </custom_setup>
+        </resources>
+
+    </global>   
+
+</config>
