@@ -1,0 +1,57 @@
+<config>
+	<menu>
+		<browse>
+			<title>Browse</title>
+			<sort_order>71</sort_order>
+			<children>
+				<browse>
+					<title>Manage Browse</title>
+					<sort_order>100</sort_order>
+					<action>*/browse</action>
+				</browse>
+				
+				<browse_attribute>
+					<title>Manage Attribute</title>
+					<sort_order>100</sort_order>
+					<action>*/browse_attribute</action>
+				</browse_attribute>
+
+				<browse_set>
+					<title>Manage Attribute set</title>
+					<sort_order>100</sort_order>
+					<action>*/browse_set</action>
+				</browse_set>
+
+			</children>
+		</browse>
+	</menu>
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+					<browse translate="title">
+						<title>Browse</title>
+						<sort_order>1000</sort_order>
+						<children>
+							<alert translate="title">
+								<title>Manage Browse</title>
+							</alert>
+
+							<alert translate="title">
+								<title>Manage Attribute</title>
+							</alert>
+
+							<alert translate="title">
+								<title>Manage Attribute set</title>
+							</alert>
+							
+						</children>
+					</browse>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>
