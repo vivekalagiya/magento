@@ -1,0 +1,41 @@
+<div class="page-title">
+    <h1><?php echo $this->__('My Attribute Grid') ?></h1>
+</div>
+
+<?php $attributes = $this->getAttributes(); ?>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?php echo $this->getPagerHtml(); ?>
+<a href="<?php echo $this->getAddUrl() ?>" class="button"><?php echo $this->__('Add New Attribute') ?></a><br><br>
+
+<?php if ($attributes) : ?>
+    <table class="data-table" id="my-product-table">
+        <thead>
+            <tr class="headings">
+                <th><span class="nobr"><a href="#" name="frontend_label" title="asc" class="not-sort"><span class="sort-title">Attribute Label</span></a></span></th>
+                <th><span class="nobr"><a href="#" name="is_required" title="asc" class="not-sort"><span class="sort-title">Required</span></a></span></th>
+                <th><span class="nobr"><a href="#" name="is_visible" title="asc" class="not-sort"><span class="sort-title">Visible</span></a></span></th>
+                <th><span class="nobr"><a href="#" name="is_visible" title="asc" class="not-sort"><span class="sort-title">Action</span></a></span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $_odd = ''; ?>
+            <?php if (!$attributes) : ?>
+            <?php else : ?>
+                <?php foreach ($attributes as $attribute) : ?>
+                    <tr>
+                        <td><?php echo $attribute['frontend_label'] ?></td>
+                        <td><?php echo $attribute['is_required'] ?></td>
+                        <td><?php echo $attribute['is_visible'] ?></td>
+                        <td><a onclick="setLocation('<?php echo $url = $this->getEditUrl($attribute); ?>attribute_id/<?php echo $attribute['attribute_id'] ?>')" class="button"><?php echo $this->__('Edit') ?></a></td>
+                    </tr>
+                <?php endforeach; ?>    
+            <?php endif; ?>
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        decorateTable('my-product-table');
+    </script>
+    <?php echo $this->getPagerHtml(); ?>
+<?php else : ?>
+    <p><?php echo $this->__('You have no Attributes yet.'); ?></p>
+<?php endif ?>

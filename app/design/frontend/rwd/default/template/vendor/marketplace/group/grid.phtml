@@ -1,0 +1,38 @@
+<div class="page-title">
+<h1><?php echo $this->__('My Group Grid') ?></h1>
+</div>
+<?php $groups = $this->getAttributeGroups(); ?>
+<?php echo $this->getMessagesBlock()->toHtml(); ?>
+
+
+
+<?php  if ($groups->getData()) : ?>
+<table class="data-table" id="my-product-table">
+<thead>
+<tr>
+<th>
+<?php echo $this->__('Group Name'); ?>
+</th>
+</tr>
+</thead>
+<tbody>
+<?php foreach ($groups as $group) : ?>
+<tr style="cursor:pointer;" onclick="redirectToEdit(this)" title="<?= $this->getEditUrl() . 'group_id' . '/' . $group->getAttributeGroupId(); ?>">
+<td>
+<?php echo $group->getAttributeGroupName(); ?>
+</td>
+</tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+<?php  else : ?>
+<p>
+<?php echo $this->__('You have no group created Yet!'); ?>
+</p>
+<?php endif; ?>
+
+<script>
+function redirectToEdit(row) {
+window.location = row.title;
+}
+</script>
