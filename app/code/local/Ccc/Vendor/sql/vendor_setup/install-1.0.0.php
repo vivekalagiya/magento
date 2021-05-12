@@ -11,7 +11,7 @@ $this->addEntityType(Ccc_Vendor_Model_Resource_Vendor::ENTITY, [
     'entity_attribute_collection' => 'vendor/vendor_attribute_collection',
 ]);
 
-// $this->createEntityTables('vendor');
+$this->createEntityTables('vendor');
 // $this->installEntities();
 
 $default_attribute_set_id = Mage::getModel('eav/entity_setup', 'core_setup')
