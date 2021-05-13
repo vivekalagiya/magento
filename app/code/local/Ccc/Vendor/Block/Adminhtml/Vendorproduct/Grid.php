@@ -42,14 +42,14 @@ class Ccc_Vendor_Block_Adminhtml_VendorProduct_Grid extends Mage_Adminhtml_Block
             $adminStore
         );
 
-        $collection->joinAttribute(
-            'sku',
-            'vendor_product/sku',
-            'entity_id',
-            null,
-            'inner',
-            $adminStore
-        );
+        // $collection->joinAttribute(
+        //     'sku',
+        //     'vendor_product/sku',
+        //     'entity_id',
+        //     null,
+        //     'inner',
+        //     $adminStore
+        // );
 
         $collection->joinAttribute(
             'price',
@@ -118,12 +118,12 @@ class Ccc_Vendor_Block_Adminhtml_VendorProduct_Grid extends Mage_Adminhtml_Block
                 'index'  => 'name',
             ));
 
-        $this->addColumn('sku',
-            array(
-                'header' => Mage::helper('vendor')->__('Sku'),
-                'width'  => '50px',
-                'index'  => 'sku',
-            ));
+        // $this->addColumn('sku',
+        //     array(
+        //         'header' => Mage::helper('vendor')->__('Sku'),
+        //         'width'  => '50px',
+        //         'index'  => 'sku',
+        //     ));
 
         $this->addColumn('price',
             array(

@@ -32,7 +32,7 @@ class Ccc_Vendor_Block_Marketplace_Product_Grid extends Mage_Adminhtml_Block_Wid
     {
         $store = $this->_getStore();
         $collection = Mage::getModel('vendor/product')->getCollection()
-            ->addAttributeToSelect('sku')
+            // ->addAttributeToSelect('sku')
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('attribute_set_id');
         $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
@@ -45,14 +45,14 @@ class Ccc_Vendor_Block_Marketplace_Product_Grid extends Mage_Adminhtml_Block_Wid
             'inner',
             $adminStore
         );
-        $collection->joinAttribute(
-            'sku',
-            'vendor_product/sku',
-            'entity_id',
-            null,
-            'inner',
-            $adminStore
-        );
+        // $collection->joinAttribute(
+        //     'sku',
+        //     'vendor_product/sku',
+        //     'entity_id',
+        //     null,
+        //     'inner',
+        //     $adminStore
+        // );
         $collection->joinAttribute(
             'status',
             'vendor_product/status',
@@ -151,14 +151,14 @@ class Ccc_Vendor_Block_Marketplace_Product_Grid extends Mage_Adminhtml_Block_Wid
         //     )
         // );
 
-        $this->addColumn(
-            'sku',
-            array(
-                'header' => Mage::helper('vendor')->__('SKU'),
-                'width' => '80px',
-                'index' => 'sku',
-            )
-        );
+        // $this->addColumn(
+        //     'sku',
+        //     array(
+        //         'header' => Mage::helper('vendor')->__('SKU'),
+        //         'width' => '80px',
+        //         'index' => 'sku',
+        //     )
+        // );
 
         $store = $this->_getStore();
         $this->addColumn(
