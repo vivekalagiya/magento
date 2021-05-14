@@ -1,0 +1,93 @@
+<config>
+    <modules>
+        <Ccc_Browse>
+            <version>0.2.1</version>
+        </Ccc_Browse>
+    </modules>
+
+    <admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<ccc_browse>Ccc_Browse_Adminhtml</ccc_browse>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+
+    <adminhtml>
+	    <layout>
+	      <updates>
+	        <browse>
+	          <file>browse.xml</file>
+	        </browse>
+	      </updates>
+	    </layout>
+  	</adminhtml>
+
+    
+    <global>
+
+        <blocks>
+            <browse>
+                <class>Ccc_Browse_Block</class>
+            </browse>
+        </blocks>
+
+        <models>
+            <browse>
+                <class>Ccc_Browse_Model</class>
+                <resourceModel>browse_resource</resourceModel>
+            </browse>
+
+            <browse_resource>
+	            <class>Ccc_Browse_Model_Resource</class>
+	            <entities>
+	                <browse>
+	                    <table>browse</table>
+	                </browse>
+	                <browse_datetime>
+	                	<table>browse_datetime</table>
+		            </browse_datetime>
+		            <browse_decimal>
+		                <table>browse_decimal</table>
+		            </browse_decimal>
+		            <browse_int>
+		                <table>browse_int</table>
+		            </browse_int>
+		            <browse_text>
+		                <table>browse_text</table>
+		            </browse_text>
+		            <browse_varchar>
+		                <table>browse_varchar</table>
+		            </browse_varchar>
+		            <browse_char>
+		                <table>browse_char</table>
+		            </browse_char>
+		            <eav_attribute>
+                        <table>browse_eav_attribute</table>
+                    </eav_attribute>
+		        </entities>
+		    </browse_resource>
+        </models>
+
+        <resources>
+            <browse_setup>
+                <setup>
+                    <module>Ccc_Browse</module>
+                    <class>Ccc_Browse_Model_Resource_Setup</class>
+                </setup>
+            </browse_setup>
+        </resources>
+
+        <helpers>
+			<browse>
+				<class>Ccc_Browse_Helper</class>
+			</browse>
+		</helpers>
+
+    </global>
+
+</config>
