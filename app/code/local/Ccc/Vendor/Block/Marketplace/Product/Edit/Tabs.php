@@ -54,7 +54,7 @@ class Ccc_Vendor_Block_Marketplace_Product_Edit_Tabs extends Mage_Core_Block_Tem
                 array('attribute' => 'eav_entity_attribute'),
                 'attribute.attribute_id = main_table.attribute_id',
                 array('*')
-            )->where("main_table.entity_type_id = {$entityTypeId} AND main_table.is_user_defined = 0 AND attribute.attribute_set_id = {$attributeSetId}");
+            )->where("main_table.entity_type_id = {$entityTypeId} AND main_table.is_user_defined = 0 AND attribute.attribute_set_id = {$attributeSetId} AND is_required = 1");
 
         $vendorProductDefaultAttributes = $vendorProductDefaultAttributes->load();
 
