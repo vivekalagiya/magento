@@ -2,6 +2,8 @@
 
 class Ccc_Vendor_Adminhtml_VendorproductController extends Mage_Adminhtml_Controller_Action
 {
+    protected $_entityTypeId = null;
+
     public function indexAction()
     {
         $this->loadLayout();
@@ -128,16 +130,18 @@ class Ccc_Vendor_Adminhtml_VendorproductController extends Mage_Adminhtml_Contro
             if($requestType == 'insert') {
                 $data['entity_id'] = null;
                 $catalogProduct->addData($data)
-                    ->setAttributeSetId($defaultAttributeSetId)
-                    ->setEntityTypeId($this->_entityTypeId)
-                    ->setTypeId('simple');
+                ->setAttributeSetId($defaultAttributeSetId)
+                ->setEntityTypeId($this->_entityTypeId)
+                ->setTypeId('simple');
+                // echo '<pre>';
+                // print_r($data);die;
                 $catalogProduct->save();
                 
                 $requestModel->setApproveStatus('approved')
                 ->setApprovedAt(date('Y-m-d H:i:s'))
                 ->setCatalogProductId($catalogProduct->getId());
                 $requestModel->save();
-
+                
                 Mage::getSingleton('core/session')->addSuccess('Product Inserted.');
             }
             if($requestType == 'update') {
@@ -145,7 +149,7 @@ class Ccc_Vendor_Adminhtml_VendorproductController extends Mage_Adminhtml_Contro
                 $catalogProduct->load($catalogProductId);
                 $catalogProduct->addData($data)
                     ->setEntityId($catalogProductId)
-                    ->setAttributeSetId($defaultAttributeSetId)
+                    // ->setAttributeSetId($defaultAttributeSetId)
                     ->setEntityTypeId($this->_entityTypeId)
                     ->setTypeId('simple');
                 $catalogProduct->save();

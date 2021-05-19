@@ -1,6 +1,9 @@
 <div class="page-title">
     <h1><?php echo $this->__('My Product List') ?></h1>
 </div>
+
+<?php echo $this->getMessagesBlock()->toHtml(); ?>
+
 <?php $products = $this->getProducts(); ?>
 <?php $status = $this->getRequestStatus(); ?>
 
@@ -67,7 +70,7 @@
                         <?php endif; ?>
                     </td>
                     <td>
-                        <?php if ($currentstatus == 'approved' || $currentstatus == 'rejected' ) : ?>
+                        <?php if ($currentstatus == 'pending' || $currentstatus == 'rejected' ) : ?>
                             <a href="../edit/id/<?php echo $product['entity_id'] ?>" class="button" style="margin-top: 20px;" id="editButton">
                                 <?php echo $this->__('Edit'); ?>
                             </a>
