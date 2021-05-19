@@ -70,7 +70,7 @@
                         <?php endif; ?>
                     </td>
                     <td>
-                        <?php if ($currentstatus == 'pending' || $currentstatus == 'rejected' ) : ?>
+                        <?php if ($currentstatus == 'approved' || $currentstatus == 'rejected' ) : ?>
                             <a href="../edit/id/<?php echo $product['entity_id'] ?>" class="button" style="margin-top: 20px;" id="editButton">
                                 <?php echo $this->__('Edit'); ?>
                             </a>
