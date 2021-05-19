@@ -90,7 +90,6 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
         
         /**********sent request to admin***********/
         $productId = $product->getId();
-        $catalogProductId = null;
         if($this->getRequest()->getParam('product_id')){
             $requestType = 'update';
         }else{
@@ -106,8 +105,7 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
         // die;
         
         $request->setVendorId($vendorId)
-        ->setProductId($productId)
-        ->setCatalogProductId($catalogProductId)
+            ->setProductId($productId)
             ->setRequestType($requestType)
             ->setApproveStatus($approveStatus)
             ->setCreatedAt($createdDate);
@@ -129,7 +127,6 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
         {
             $productId = $this->getRequest()->getParam('id');
             $vendorId = Mage::getModel('vendor/session')->getId();
-            $catalogProductId = null;
             $requestType = 'delete';
             $approveStatus = 'pending';
             $createdDate = date('Y-m-d H:i:s');
@@ -137,7 +134,6 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
             $request = Mage::getModel('vendor/product_request')->load($productId, 'product_id');
             $request->setVendorId($vendorId)
             ->setProductId($productId)
-            ->setCatalogProductId($catalogProductId)
             ->setRequestType($requestType)
             ->setApproveStatus($approveStatus)
             ->setCreatedAt($createdDate);

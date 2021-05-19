@@ -4,6 +4,13 @@ class Ccc_Vendor_Adminhtml_VendorproductController extends Mage_Adminhtml_Contro
 {
     protected $_entityTypeId = null;
 
+    public function preDispatch()
+    {
+        // $this->_setForcedFormKeyActions('delete');
+        parent::preDispatch();
+        $this->_entityTypeId = Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Product::ENTITY)->getTypeId();
+    }
+
     public function indexAction()
     {
         $this->loadLayout();
@@ -123,7 +130,8 @@ class Ccc_Vendor_Adminhtml_VendorproductController extends Mage_Adminhtml_Contro
         $requestId = $requestModel->getRequestId();
         $data = $vendorProduct->getData();
 
-        $defaultAttributeSetId = Mage::getModel('vendor/product')->getDefaultAttributeSetId();
+        $defaultAttributeSetId = Mage::getModel('eav/entity_setup', 'core_setup')
+            ->getAttributeSetId(Mage_Catalog_Model_Product::ENTITY, 'Default');
 
         
         try {
@@ -133,13 +141,10 @@ class Ccc_Vendor_Adminhtml_VendorproductController extends Mage_Adminhtml_Contro
                 ->setAttributeSetId($defaultAttributeSetId)
                 ->setEntityTypeId($this->_entityTypeId)
                 ->setTypeId('simple');
-                // echo '<pre>';
-                // print_r($data);die;
                 $catalogProduct->save();
-                
                 $requestModel->setApproveStatus('approved')
-                ->setApprovedAt(date('Y-m-d H:i:s'))
-                ->setCatalogProductId($catalogProduct->getId());
+                    ->setApprovedAt(date('Y-m-d H:i:s'))
+                    ->setCatalogProductId($catalogProduct->getId());
                 $requestModel->save();
                 
                 Mage::getSingleton('core/session')->addSuccess('Product Inserted.');
@@ -149,30 +154,32 @@ class Ccc_Vendor_Adminhtml_VendorproductController extends Mage_Adminhtml_Contro
                 $catalogProduct->load($catalogProductId);
                 $catalogProduct->addData($data)
                     ->setEntityId($catalogProductId)
-                    // ->setAttributeSetId($defaultAttributeSetId)
+                    ->setAttributeSetId($defaultAttributeSetId)
                     ->setEntityTypeId($this->_entityTypeId)
                     ->setTypeId('simple');
                 $catalogProduct->save();
                 
                 $requestModel->setApproveStatus('approved')
-                ->setApprovedAt(date('Y-m-d H:i:s'));
+                    ->setApprovedAt(date('Y-m-d H:i:s'));
                 $requestModel->save();
                     
                 Mage::getSingleton('core/session')->addSuccess('Product Updated.');
             }
             if($requestType == 'delete') {
-                
+
                 $vendorProduct->delete();
-                
+
+                $catalogProductId = $requestModel->getCatalogProductId();
+                $catalogProduct->load($catalogProductId)->delete();
                 $requestModel->setApproveStatus('approved')
-                ->setApprovedAt(date('Y-m-d H:i:s'));
+                    ->setApprovedAt(date('Y-m-d H:i:s'));
                 $requestModel->save();
                 Mage::getSingleton('core/session')->addSuccess('Product Deleted.');
                 
             }
             $this->_redirect('*/*/');
         } catch (Exception $e) {
-            $e->getMessage();die;
+            Mage::getSingleton('core/session')->addError($e->getMessage());
         }
 
     }
