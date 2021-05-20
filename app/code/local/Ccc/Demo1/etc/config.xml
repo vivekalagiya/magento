@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <ccc_Demo1>
+            <version>1.0.0</version>
+        </ccc_Demo1>
+    </modules>
+ 
+    <global>
+        <models>
+            <demo1>
+                <class>Ccc_Demo1_Model</class>
+            </demo1>
+        </models>
+        <helpers>
+            <demo1>
+                <class>Ccc_Demo1_Helper</class>
+            </demo1>
+        </helpers>
+        <blocks>
+            <demo1>
+                <class>Ccc_Demo1_Block</class>
+            </demo1>
+        </blocks>
+    </global>
+    
+    <default>
+        <payment>
+            <demo1>
+                <active>1</active>
+                <model>demo1/standard</model>  <!-- very important thing, here you select the model for your payment method -->
+                <order_status>pending</order_status>
+                <title>COD</title>
+                <payment_action>sale</payment_action>
+                <allowspecific>0</allowspecific>
+                <can_use_checkout>1</can_use_checkout>
+                <sort_order>1</sort_order>
+            </demo1>
+        </payment>
+    </default>
+    
+    <frontend>
+        <routers>
+            <demo1>
+                <use>standard</use>
+                <args>
+                    <module>Ccc_Demo1</module>
+                    <frontname>cod</frontname>
+                </args>
+            </demo1>
+        </routers>
+    </frontend>
+</config>
