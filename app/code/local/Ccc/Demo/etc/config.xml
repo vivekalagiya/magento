@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Ccc_Demo>
+            <module>0.0.1</module>
+        </Ccc_Demo>
+    </modules>
+    <global>
+        <models>
+            <demo>
+                <class>Ccc_Demo_Model</class>
+            </demo>
+        </models>
+        <helpers>
+            <demo>
+                <class>Ccc_Demo_Helper</class>
+            </demo>
+        </helpers>
+    </global>
+    <default>
+        <carriers>
+            <demo>
+                <active>1</active>
+                <model>demo/carrier</model>
+                <title>Express</title>
+                <sort_order>10</sort_order>
+                <sallowspecific>0</sallowspecific>
+            </demo>
+        </carriers>
+    </default>
+</config>
