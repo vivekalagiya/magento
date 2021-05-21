@@ -90,16 +90,18 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
         
         /**********sent request to admin***********/
         $productId = $product->getId();
-        if($this->getRequest()->getParam('product_id')){
+
+        if($productId){
+            $request = Mage::getModel('vendor/product_request')->load($productId, 'product_id');
+        }
+
+        if($request->getCatalogProductId()){
             $requestType = 'update';
         }else{
             $requestType = 'insert';
         }
         $approveStatus = 'pending';
         
-        if($productId){
-            $request = Mage::getModel('vendor/product_request')->load($productId, 'product_id');
-        }
         // echo '<pre>';
         // print_r($request);
         // die;

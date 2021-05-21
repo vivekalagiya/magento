@@ -123,9 +123,16 @@ class Ccc_Vendor_Adminhtml_VendorproductController extends Mage_Adminhtml_Contro
     {
         $productId = (int)$this->getRequest()->getParam('id');
         $requestModel = Mage::getModel('vendor/product_request')->load($productId, 'product_id');
+        
+        if($requestModel->getApproveStatus() == 'approved') {
+            Mage::getSingleton('core/session')->addSuccess('Product already approved!');
+            $this->_redirect('*/*/');
+            return 0;
+        }
+        
         $catalogProduct = Mage::getModel('catalog/product');
         $vendorProduct = Mage::getModel('vendor/product')->load($productId);   
-
+        
         $requestType = $requestModel->getRequestType();
         $requestId = $requestModel->getRequestId();
         $data = $vendorProduct->getData();

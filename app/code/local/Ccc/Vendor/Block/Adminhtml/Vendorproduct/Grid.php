@@ -26,78 +26,77 @@ class Ccc_Vendor_Block_Adminhtml_VendorProduct_Grid extends Mage_Adminhtml_Block
         $store = $this->_getStore();
 
         $collection = Mage::getModel('vendor/product')->getCollection();
+
+        $collection->getSelect()->join(['request' => 'vendor_product_request'], 'e.entity_id = request.product_id');
             // ->addAttributeToSelect('name')
             // ->addAttributeToSelect('sku')
             // ->addAttributeToSelect('price');
             // ->addAttributeToSelect('vendor_id');
+            $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
+            
+            $collection->joinAttribute(
+                'name',
+                'vendor_product/name',
+                'entity_id',
+                null,
+                'inner',
+                $adminStore
+            );
+            
+            $collection->joinAttribute(
+                'sku',
+                'vendor_product/sku',
+                'entity_id',
+                null,
+                'inner',
+                $adminStore
+            );
+            
+            $collection->joinAttribute(
+                'price',
+                'vendor_product/price',
+                'entity_id',
+                null,
+                'inner',
+                $adminStore
+            );
+            
+            // $collection->joinAttribute(
+                //     'vendor_id',
+                //     'vendor_product/vendor_id',
+                //     'entity_id',
+                //     null,
+                //     'inner',
+                //     $adminStore
+                // );
+                
+                $collection->joinAttribute(
+                    'id',
+                    'vendor_product/entity_id',
+                    'entity_id',
+                    null,
+                    'inner',
+                    $adminStore
+                );
+                
+        // $requestCollection = Mage::getModel('vendor/product_request')->getCollection()
+        //     ->addFilter('approve_status', 'pending');
+                
+        // $varientCollection = new Varien_Data_Collection();
+                
 
-        $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
-
-        $collection->joinAttribute(
-            'name',
-            'vendor_product/name',
-            'entity_id',
-            null,
-            'inner',
-            $adminStore
-        );
-
-        // $collection->joinAttribute(
-        //     'sku',
-        //     'vendor_product/sku',
-        //     'entity_id',
-        //     null,
-        //     'inner',
-        //     $adminStore
-        // );
-
-        $collection->joinAttribute(
-            'price',
-            'vendor_product/price',
-            'entity_id',
-            null,
-            'inner',
-            $adminStore
-        );
-
-        // $collection->joinAttribute(
-        //     'vendor_id',
-        //     'vendor_product/vendor_id',
-        //     'entity_id',
-        //     null,
-        //     'inner',
-        //     $adminStore
-        // );
-
-        $collection->joinAttribute(
-            'id',
-            'vendor_product/entity_id',
-            'entity_id',
-            null,
-            'inner',
-            $adminStore
-        );
-
-        $requestCollection = Mage::getModel('vendor/product_request')->getCollection()
-            ->addFilter('approve_status', 'pending');
-
-        $varientCollection = new Varien_Data_Collection();
-
-        // echo '<pre>';
-        // print_r($collection->getData());die;
-
-        foreach ($requestCollection->getData() as $request) {
-            foreach ($collection->getData() as $product) {
-                if($request['product_id'] == $product['entity_id']){
-                    $finalArray = array_merge($request,$product);
-                }
-            }
-            $obj = new Varien_Object();
-            $obj->setData($finalArray);
-            $varientCollection->addItem($obj);
-        }
+        // foreach ($requestCollection->getData() as $request) {
+        //     foreach ($collection->getData() as $product) {
+        //         if($request['product_id'] == $product['entity_id']){
+        //             $finalArray = array_merge($request,$product);
+        //         }
+        //     }
+        //     $obj = new Varien_Object();
+        //     $obj->setData($finalArray);
+        //     $varientCollection->addItem($obj);
+        // }
         
-        $this->setCollection($varientCollection);
+        $this->setCollection($collection);
         // echo '<pre>';
         // print_r($varientCollection);die;
         return parent::_prepareCollection();
@@ -118,12 +117,12 @@ class Ccc_Vendor_Block_Adminhtml_VendorProduct_Grid extends Mage_Adminhtml_Block
                 'index'  => 'name',
             ));
 
-        // $this->addColumn('sku',
-        //     array(
-        //         'header' => Mage::helper('vendor')->__('Sku'),
-        //         'width'  => '50px',
-        //         'index'  => 'sku',
-        //     ));
+        $this->addColumn('sku',
+            array(
+                'header' => Mage::helper('vendor')->__('Sku'),
+                'width'  => '50px',
+                'index'  => 'sku',
+            ));
 
         $this->addColumn('price',
             array(
