@@ -13,20 +13,20 @@
         <!-- TEXT -->
         <?php if ($attribute['frontend_input'] == 'text') : ?>
             <strong><label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>> <?php echo $attribute['frontend_label']; ?> </label> </strong>
-            <input type="<?php echo $attribute['frontend_input']; ?>" name="<?php echo $attribute['attribute_code']; ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+            <input id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>" type="<?php echo $attribute['frontend_input']; ?>" name="<?php echo $attribute['attribute_code']; ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
         <?php endif; ?>
 
         <!--PRICE -->
         <?php if ($attribute['frontend_input'] == 'price'  || $attribute['frontend_input'] == 'weight') : ?>
             <strong><label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label']; ?></label> </strong>
-            <input type="number" name="<?php echo $attribute['attribute_code']; ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+            <input id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  type="number" name="<?php echo $attribute['attribute_code']; ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
         <?php endif; ?>
 
 
         <!-- TEXTAREA -->
         <?php if ($attribute['frontend_input'] == 'textarea') : ?>
             <strong><label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label']; ?></label> </strong>
-            <textarea maxlength=250 rows="4" cols="50" name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>><?php echo $data[$value]; ?></textarea>
+            <textarea id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  maxlength=250 rows="4" cols="50" name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>><?php echo $data[$value]; ?></textarea>
         <?php endif; ?>
 
         <!--SELECT-->
@@ -34,7 +34,7 @@
             <?php $options = $this->getOptions($attribute['attribute_id']); ?>
             <?php if ($options) : ?>
                 <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
-                <select name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+                <select id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
                     <?php foreach ($options as $key => $option) : ?>
                         <option value="<?php echo $option['option_id'] ?>" <?php if ($data[$value] == $option['option_id']) : ?>selected <?php endif; ?>><?php echo $option['value']; ?> </option>
                     <?php endforeach; ?>
@@ -45,7 +45,7 @@
         <!-- YES/NO -->
         <?php if ($attribute['frontend_input'] == 'boolean') : ?>
             <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
-            <select name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+            <select id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
                 <option value=1 <?php if ($data[$value] == 1) : ?>selected<?php endif; ?>>Yes</option>
                 <option value=0 <?php if ($data[$value] == 0) : ?>selected<?php endif; ?>>No</option>
             </select>
@@ -54,7 +54,7 @@
         <!-- STATUS -->
         <?php if ($attribute['attribute_code'] == 'status') : ?>
             <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
-            <select name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+            <select id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
                 <option value="">--Please Select--</option>
                 <option value=1 <?php if ($data[$value] == 1) : ?>selected<?php endif; ?>>Enable</option>
                 <option value=2 <?php if ($data[$value] == 2) : ?>selected<?php endif; ?>>Disable</option>
@@ -64,7 +64,7 @@
         <!-- VISIBILITY -->
         <?php if ($attribute['attribute_code'] == 'visibility') : ?>
             <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
-            <select name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+            <select id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
                 <option value="">--Please Select--</option>
                 <option value=1 <?php if ($data[$value] == 1) : ?>selected<?php endif; ?>>Not Visible Individually</option>
                 <option value=2 <?php if ($data[$value] == 2) : ?>selected<?php endif; ?>>Catalog</option>
@@ -77,7 +77,7 @@
             <?php $options = $this->getOptions($attribute['attribute_id']) ?>
             <?php if ($options) : ?>
                 <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
-                <select name="<?php echo $attribute['attribute_code']; ?>[]" multiple <?php if ($attribute['is_required'] == 1) : ?> required <?php endif; ?>>
+                <select id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  name="<?php echo $attribute['attribute_code']; ?>[]" multiple <?php if ($attribute['is_required'] == 1) : ?> required <?php endif; ?>>
                     <?php foreach ($options as $key => $option) : ?>
                         <option value="<?php echo $option['option_id'] ?>" <?php $selectedoption = explode(',', $data[$value]); ?> <?php foreach ($selectedoption as $key => $row) : ?> <?php if ($row == $option['option_id']) : ?>selected<?php endif; ?> <?php endforeach; ?>>
                             <?php echo $option['value']; ?></option>
@@ -89,7 +89,7 @@
         <!--DATETIME -->
         <?php if ($attribute['frontend_input'] == 'date') : ?>
             <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
-            <input type="<?php echo $attribute['frontend_input'] ?>" name="<?php echo $attribute['attribute_code'] ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+            <input id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  type="<?php echo $attribute['frontend_input'] ?>" name="<?php echo $attribute['attribute_code'] ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
         <?php endif; ?>
 
         <!--MEDIA IMAGE -->
