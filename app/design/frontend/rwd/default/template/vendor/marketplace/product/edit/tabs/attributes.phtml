@@ -19,7 +19,7 @@
         <!--PRICE -->
         <?php if ($attribute['frontend_input'] == 'price'  || $attribute['frontend_input'] == 'weight') : ?>
             <strong><label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label']; ?></label> </strong>
-            <input id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  type="number" name="<?php echo $attribute['attribute_code']; ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+            <input id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  type="number" min="0" name="<?php echo $attribute['attribute_code']; ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
         <?php endif; ?>
 
 
