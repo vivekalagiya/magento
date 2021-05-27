@@ -76,4 +76,17 @@ class Ccc_Vendor_Model_Product extends Mage_Core_Model_Abstract
         return $this->getIsRecurring() == '1';
     }
 
+    public function validateSku($sku)
+    {
+        echo '<pre>';
+        $collection = $this->getResourceCollection()
+            ->addAttributeToFilter('sku', ['eq' => $sku]);
+        if($collection->getData()){
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
 }

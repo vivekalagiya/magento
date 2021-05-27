@@ -71,57 +71,60 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action
 
     public function saveAction()
     {
-        $postData = $this->getRequest()->getPost();
-        $productId = $this->getRequest()->getParam('product_id');
-        $product = Mage::getModel('vendor/product');
-        if($productId) {
-            if(!$product->load($productId)){
-                throw new Exception("No product foud!");
+        try {
+            $postData = $this->getRequest()->getPost();
+            $productId = $this->getRequest()->getParam('product_id');
+            $product = Mage::getModel('vendor/product');
+            if($productId) {
+                if(!$product->load($productId)){
+                    throw new Exception("No product foud!");
+                    
+                }
+            } else {
+                $sku = $postData['sku'];
+                if(!$product->validateSku($sku)){
+                    throw new Exception("Sku already exist with same name.");
+                }
                 
             }
-        }
 
-        $vendorId = Mage::getModel('vendor/session')->getId();
-        $product->addData($postData);
-        // $product->setVendorId($vendorId);
-        $product->save();
-        $query = "UPDATE `vendor_product` SET `vendor_id` = '{$vendorId}' WHERE `entity_id` = '{$product->getId()}' ";
-        $conn = Mage::getSingleton('core/resource')->getConnection('core_write')->query($query);
-        
-        /**********sent request to admin***********/
-        $productId = $product->getId();
+            $vendorId = Mage::getModel('vendor/session')->getId();
+            $product->addData($postData);
+            // $product->setVendorId($vendorId);
+            $product->save();
+            $query = "UPDATE `vendor_product` SET `vendor_id` = '{$vendorId}' WHERE `entity_id` = '{$product->getId()}' ";
+            $conn = Mage::getSingleton('core/resource')->getConnection('core_write')->query($query);
+            
+            /**********sent request to admin***********/
+            $productId = $product->getId();
 
-        if($productId){
-            $request = Mage::getModel('vendor/product_request')->load($productId, 'product_id');
-        }
+            if($productId){
+                $request = Mage::getModel('vendor/product_request')->load($productId, 'product_id');
+            }
 
-        if($request->getCatalogProductId()){
-            $requestType = 'update';
-        }else{
-            $requestType = 'insert';
+            if($request->getCatalogProductId()){
+                $requestType = 'update';
+            }else{
+                $requestType = 'insert';
+            }
+            $approveStatus = 'pending';
+            
+            $request->setVendorId($vendorId)
+                ->setProductId($productId)
+                ->setRequestType($requestType)
+                ->setApproveStatus($approveStatus)
+                ->setCreatedAt($createdDate);
+                
+                $request->save();
+                
+                /*******************************************/
+                Mage::getSingleton('vendor/session')->addSuccess('Product add successfully');
+                
+        } catch (Exception $e) {
+            Mage::getSingleton('vendor/session')->addError($e->getMessage());
         }
-        $approveStatus = 'pending';
+        $this->_redirect('*/*/grid');
         
-        // echo '<pre>';
-        // print_r($request);
-        // die;
-        
-        $request->setVendorId($vendorId)
-            ->setProductId($productId)
-            ->setRequestType($requestType)
-            ->setApproveStatus($approveStatus)
-            ->setCreatedAt($createdDate);
-            
-            // echo '<pre>';
-            // print_r($request);
-            // die;
-            $request->save();
-            
-            /*******************************************/
-            
-            Mage::getSingleton('vendor/session')->addSuccess('Product add successfully');
-            $this->_redirect('*/*/grid');
-            
             
         }
         

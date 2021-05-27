@@ -12,9 +12,10 @@
 
         <!-- TEXT -->
         <?php if ($attribute['frontend_input'] == 'text') : ?>
-            <strong><label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>> <?php echo $attribute['frontend_label']; ?> </label> </strong>
-            <input id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>" type="<?php echo $attribute['frontend_input']; ?>" name="<?php echo $attribute['attribute_code']; ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
-        <?php endif; ?>
+            <strong><label <?php if ($attribute['is_required'] == 1) : ?> class="required" > <?php echo $attribute['frontend_label']; ?><?php endif; ?> </label> </strong>
+            <input id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>" type="<?php echo $attribute['frontend_input']; ?>" name="<?php echo $attribute['attribute_code']; ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required  <?php endif; ?> <?php if($attribute['attribute_code'] == 'sku' && $data[$value]) { echo 'disabled'; } ?>>
+                <br><?php if($attribute['attribute_code'] == 'sku' && $data[$value]) : ?> <small><p style="color:red">(Can not change Sku.)</p></small> <?php endif; ?>
+                <?php endif; ?>
 
         <!--PRICE -->
         <?php if ($attribute['frontend_input'] == 'price'  || $attribute['frontend_input'] == 'weight') : ?>

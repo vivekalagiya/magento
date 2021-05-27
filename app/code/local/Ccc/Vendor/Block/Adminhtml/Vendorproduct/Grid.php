@@ -110,6 +110,15 @@ class Ccc_Vendor_Block_Adminhtml_VendorProduct_Grid extends Mage_Adminhtml_Block
                 'width'  => '50px',
                 'index'  => 'id',
             ));
+
+            
+        $this->addColumn('catalog_product_id',
+        array(
+            'header' => Mage::helper('vendor')->__('Catalog Product Id'),
+            'width'  => '50px',
+            'index'  => 'catalog_product_id',
+        ));
+
         $this->addColumn('name',
             array(
                 'header' => Mage::helper('vendor')->__('Name'),
