@@ -1,0 +1,111 @@
+<?php $data = $this->getProductData()->getData(); ?>
+
+
+<?php foreach ($this->getAttributes() as $attribute) : ?>
+
+    <?php $value = $attribute['attribute_code']; ?>
+    <?php if (($attribute['is_required'] == 1 && $attribute['is_user_defined'] == 0) || ($attribute['is_user_defined'] == 1)) : ?>
+
+        <?php if ($attribute['attribute_code'] == 'created_at' || $attribute['attribute_code'] == 'updated_at') : ?>
+            <?php continue; ?>
+        <?php endif; ?>
+
+        <!-- TEXT -->
+        <?php if ($attribute['frontend_input'] == 'text') : ?>
+            <strong><label <?php if ($attribute['is_required'] == 1) : ?> class="required" > <?php echo $attribute['frontend_label']; ?><?php endif; ?> </label> </strong>
+            <input id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>" type="<?php echo $attribute['frontend_input']; ?>" name="<?php echo $attribute['attribute_code']; ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required  <?php endif; ?> <?php if($attribute['attribute_code'] == 'sku' && $data[$value]) { echo 'disabled'; } ?>>
+                <br><?php if($attribute['attribute_code'] == 'sku' && $data[$value]) : ?> <small><p style="color:red">(Can not change Sku.)</p></small> <?php endif; ?>
+                <?php endif; ?>
+
+        <!--PRICE -->
+        <?php if ($attribute['frontend_input'] == 'price'  || $attribute['frontend_input'] == 'weight') : ?>
+            <strong><label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label']; ?></label> </strong>
+            <input id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  type="number" min="0" name="<?php echo $attribute['attribute_code']; ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+        <?php endif; ?>
+
+
+        <!-- TEXTAREA -->
+        <?php if ($attribute['frontend_input'] == 'textarea') : ?>
+            <strong><label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label']; ?></label> </strong>
+            <textarea id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  maxlength=250 rows="4" cols="50" name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>><?php echo $data[$value]; ?></textarea>
+        <?php endif; ?>
+
+        <!--SELECT-->
+        <?php if ($attribute['frontend_input'] == 'select') : ?>
+            <?php $options = $this->getOptions($attribute['attribute_id']); ?>
+            <?php if ($options) : ?>
+                <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
+                <select id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+                    <?php foreach ($options as $key => $option) : ?>
+                        <option value="<?php echo $option['option_id'] ?>" <?php if ($data[$value] == $option['option_id']) : ?>selected <?php endif; ?>><?php echo $option['value']; ?> </option>
+                    <?php endforeach; ?>
+                </select>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <!-- YES/NO -->
+        <?php if ($attribute['frontend_input'] == 'boolean') : ?>
+            <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
+            <select id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+                <option value=1 <?php if ($data[$value] == 1) : ?>selected<?php endif; ?>>Yes</option>
+                <option value=0 <?php if ($data[$value] == 0) : ?>selected<?php endif; ?>>No</option>
+            </select>
+        <?php endif; ?>
+
+        <!-- STATUS -->
+        <?php if ($attribute['attribute_code'] == 'status') : ?>
+            <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
+            <select id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+                <option value="">--Please Select--</option>
+                <option value=1 <?php if ($data[$value] == 1) : ?>selected<?php endif; ?>>Enable</option>
+                <option value=2 <?php if ($data[$value] == 2) : ?>selected<?php endif; ?>>Disable</option>
+            </select>
+        <?php endif; ?>
+
+        <!-- VISIBILITY -->
+        <?php if ($attribute['attribute_code'] == 'visibility') : ?>
+            <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
+            <select id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  name="<?php echo $attribute['attribute_code']; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+                <option value="">--Please Select--</option>
+                <option value=1 <?php if ($data[$value] == 1) : ?>selected<?php endif; ?>>Not Visible Individually</option>
+                <option value=2 <?php if ($data[$value] == 2) : ?>selected<?php endif; ?>>Catalog</option>
+                <option value=3 <?php if ($data[$value] == 3) : ?>selected<?php endif; ?>>Search</option>
+                <option value=4 <?php if ($data[$value] == 4) : ?>selected<?php endif; ?>>Catalog, Search</option>
+            </select>
+        <?php endif; ?>
+
+        <?php if ($attribute['frontend_input'] == 'multiselect') : ?>
+            <?php $options = $this->getOptions($attribute['attribute_id']) ?>
+            <?php if ($options) : ?>
+                <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
+                <select id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  name="<?php echo $attribute['attribute_code']; ?>[]" multiple <?php if ($attribute['is_required'] == 1) : ?> required <?php endif; ?>>
+                    <?php foreach ($options as $key => $option) : ?>
+                        <option value="<?php echo $option['option_id'] ?>" <?php $selectedoption = explode(',', $data[$value]); ?> <?php foreach ($selectedoption as $key => $row) : ?> <?php if ($row == $option['option_id']) : ?>selected<?php endif; ?> <?php endforeach; ?>>
+                            <?php echo $option['value']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <!--DATETIME -->
+        <?php if ($attribute['frontend_input'] == 'date') : ?>
+            <label <?php if ($attribute['is_required'] == 1) : ?> class="required" <?php endif; ?>><?php echo $attribute['frontend_label'] ?></label>
+            <input id="<?php if($attribute->getIsRequired()) { echo 'required'; } ?>"  type="<?php echo $attribute['frontend_input'] ?>" name="<?php echo $attribute['attribute_code'] ?>" value="<?php echo $data[$value]; ?>" <?php if ($attribute['is_required'] == 1) : ?> class="required" required <?php endif; ?>>
+        <?php endif; ?>
+
+        <!--MEDIA IMAGE -->
+        <?php if ($attribute['frontend_input'] == 'media_image') : ?>
+        <?php endif; ?>
+
+    <?php endif; ?>
+<?php endforeach; ?>
+
+
+<style>
+    label {
+        display: block;
+        margin-top: 10px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-weight: bolder;
+    }
+</style>

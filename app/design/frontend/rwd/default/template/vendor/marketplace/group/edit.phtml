@@ -1,0 +1,83 @@
+<div class="page-title">
+<h1><?php echo $this->__('Create New Group') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+
+<?php $assignedAttributes = $this->getAssignedAttribute();?>
+<?php $unassignedAttributes = $this->getUnassignedAttribute();?>
+<!--
+<button class="button" style="margin-top: 20px; margin-left: 20px; float: right;"><?php //echo $this->__('assign');
+?></button>
+<button class="button" style="margin-top: 20px; margin-left: 20px; float: right;"><?php //echo $this->__('unassign');
+?></button> -->
+<?php if ($this->getGroupName()) : ?>
+<a href="<?php echo $this->getDeleteUrl(); ?>" class="button"><?php echo $this->__('Delete'); ?></a>
+<?php endif; ?>
+
+<form action="<?php echo $this->getSaveUrl(); ?>" method="post">
+    <button type="submit" class="button"><?php echo $this->__('Save'); ?></button>
+
+    <br><br><br>
+    <strong>Add Group</strong>
+
+    <input type="text" name="group" value="<?php echo $this->getGroupName()->getData()[0]['attribute_group_name'] ?>" />
+    <table class="data-table" id="my-group-table">
+        <thead>
+            <tr>
+            <th>
+            <h2>Assigned Attributes</h2>
+            </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th>
+            <?php if ($assignedAttributes->getData()): ?>
+            <?php foreach ($assignedAttributes as $assignedAttribute) : ?>
+            <input type="checkbox" name="assigned[<?php echo $assignedAttribute['attribute_id']; ?>]" ><?php echo $assignedAttribute['frontend_label'] ?><br>
+            <?php endforeach; ?>
+            <?php else : ?>
+            <strong>You have no assigned attributes yet!</strong>
+            <?php endif; ?>
+            </th>
+            </tr>
+        </tbody>
+    </table>
+    <table class="data-table" id="my-group-table">
+        <thead>
+            <tr>
+            <th>
+            <h2>Unassigned Attributes</h2>
+            </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th>
+            <?php if ($unassignedAttributes->getData()) : ?>
+            <?php foreach ($unassignedAttributes as $unassignedAttribute) : ?>
+            <input type="checkbox" name="unassigned[<?php echo $unassignedAttribute['attribute_id'];?>]"><?php echo $unassignedAttribute['frontend_label']?><br>
+            <?php endforeach; ?>
+            <?php else : ?>
+            <strong>You have no Unassigned attributes yet!</strong>
+            <?php endif; ?>
+            </th>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
+
+<style>
+    input[type=text] {
+    width: 50%;
+    }
+
+    table {
+    margin-top: 40px;
+    }
+
+    button {
+    float: left;
+    }
+</style>
