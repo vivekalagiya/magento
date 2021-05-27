@@ -75,20 +75,17 @@ class Ccc_Vendor_AccountController extends Mage_Core_Controller_Front_Action
         
         $vendor = $this->_getVendor();
         
+        $email = $data['email'];
+        $collection = Mage::getModel('vendor/vendor')->getCollection();
+        $collection->addAttributeToFilter('email',array('eq'=>$email));
+        if($collection->getData()){
+            $session->addError('Account already exist with same email.');
+            $this->_redirectError($errUrl);
+            return;
+        }
         try {
-            // $errors = $this->_getVendorErrors($vendor);
             
-            // if (empty($errors)) {
-                
-                // $vendor->cleanPasswordsValidationData();
-                // $vendor->save();
-                
-            // $vendorTable = $this->getTable('vendor/vendor');
-            // // $vendorTable->setEmail($data['email']);
-            // // $vendorTable->save();
-            // echo '<pre>';
-            // print_r($vendorTable);
-            // die;
+
             $vendor->setFirstname($data['firstname'])
             ->setMiddlename($data['middlename'])
             ->setLastname($data['lastname'])
