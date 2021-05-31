@@ -1,0 +1,14 @@
+<config>
+    <menu>
+        <order>
+            <title>Order</title>
+            <sort_order>110</sort_order>
+            <children>
+                <order>
+                    <title>Manage Order</title>
+                    <action>*/order/index</action>    
+                </order>
+            </children>
+        </order>
+    </menu>
+</config>

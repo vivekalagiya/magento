@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+
+<layout>
+    <adminhtml_order_index>
+        <reference name="content">
+            <block type="order/adminhtml_order" name="order.grid.container"/>
+        </reference>
+    </adminhtml_order_index>
+
+    <adminhtml_order_new>
+        <reference name="content">
+            <block type="order/adminhtml_order_cart_customer" name="customer">
+            </block>
+        </reference>
+    </adminhtml_order_new>
+
+    <adminhtml_order_grid>
+        <reference name="root">
+            <block type="order/adminhtml_order_form" template="order/form.phtml" name="content">
+                <block type="order/adminhtml_order_cartItem" template="order/cartItem.phtml" name="cartItem">
+                    <block type="order/adminhtml_order_cartItem_grid" template="order/cartItem/grid.phtml" name="cartItemGrid" />
+                </block>
+                <block type="order/adminhtml_order_account" template="order/account.phtml" name="account">
+                    <block type="order/adminhtml_order_account_grid" template="order/account/grid.phtml" name="accountGrid" />
+                </block>
+                <block type="order/adminhtml_order_billingAddress" template="order/billingAddress.phtml" name="billingAddress">
+                    <block type="order/adminhtml_order_billingAddress_form" template="order/billingAddress/form.phtml" name="billingAddressForm" />
+                </block>
+                <block type="order/adminhtml_order_shippingAddress" template="order/shippingAddress.phtml" name="shippingAddress">
+                    <block type="order/adminhtml_order_shippingAddress_form" template="order/shippingAddress/form.phtml" name="shippingAddressForm" />
+                </block>
+                <block type="order/adminhtml_order_shipmentMethod" template="order/shipmentMethod.phtml" name="shipmentMethod">
+                    <block type="order/adminhtml_order_shipmentMethod_form" template="order/shipmentMethod/form.phtml" name="shipmentMethodForm" />
+                </block>
+                <block type="order/adminhtml_order_paymentMethod" template="order/paymentMethod.phtml" name="paymentMethod">
+                    <block type="order/adminhtml_order_paymentMethod_form" template="order/paymentMethod/form.phtml" name="paymentMethodForm" />
+                </block>
+                <block type="order/adminhtml_order_cartTotal" template="order/cartTotal.phtml" name="cartTotal">
+                    <block type="order/adminhtml_order_cartTotal_grid"  template="order/cartTotal/grid.phtml" name="cartTotalGrid" />
+                </block>
+            </block>
+        </reference>
+    </adminhtml_order_grid>
+
+    <adminhtml_order_cart_index>
+        <reference name="root">
+            <block type="order/adminhtml_order_cart_form" template="order/cart/form.phtml" name="content">
+                <block type="order/adminhtml_order_cart_form_product" template="order/cart/form/product.phtml" name="product">
+                    <block type="order/adminhtml_order_cart_form_product_grid" name="productGrid" />
+                </block>
+                <block type="order/adminhtml_order_cart_form_cartItem" template="order/cart/form/cartItem.phtml" name="cartItem">
+                    <block type="order/adminhtml_order_cart_form_cartItem_grid" template="order/cart/form/cartItem/grid.phtml" name="cartItemGrid" />
+                </block>
+                <block type="order/adminhtml_order_cart_form_account" template="order/cart/form/account.phtml" name="account">
+                    <block type="order/adminhtml_order_cart_form_account_grid" template="order/cart/form/account/grid.phtml" name="accountGrid" />
+                </block>
+                <block type="order/adminhtml_order_cart_form_billingAddress" template="order/cart/form/billingAddress.phtml" name="billingAddress">
+                    <block type="order/adminhtml_order_cart_form_billingAddress_form" template="order/cart/form/billingAddress/form.phtml" name="billingAddressForm" />
+                </block>
+                <block type="order/adminhtml_order_cart_form_shippingAddress" template="order/cart/form/shippingAddress.phtml" name="shippingAddress">
+                    <block type="order/adminhtml_order_cart_form_shippingAddress_form" template="order/cart/form/shippingAddress/form.phtml" name="shippingAddressForm" />
+                </block>
+                <block type="order/adminhtml_order_cart_form_shipmentMethod" template="order/cart/form/shipmentMethod.phtml" name="shipmentMethod">
+                    <block type="order/adminhtml_order_cart_form_shipmentMethod_form" template="order/cart/form/shipmentMethod/form.phtml" name="shipmentMethodForm" />
+                </block>
+                <block type="order/adminhtml_order_cart_form_paymentMethod" template="order/cart/form/paymentMethod.phtml" name="paymentMethod">
+                    <block type="order/adminhtml_order_cart_form_paymentMethod_form" template="order/cart/form/paymentMethod/form.phtml" name="paymentMethodForm" />
+                </block>
+                <block type="order/adminhtml_order_cart_form_cartTotal" template="order/cart/form/cartTotal.phtml" name="cartTotal">
+                    <block type="order/adminhtml_order_cart_form_cartTotal_grid"  template="order/cart/form/cartTotal/grid.phtml" name="cartTotalGrid" />
+                </block>
+            </block>
+        </reference>
+    </adminhtml_order_cart_index>
+
+   
+</layout>

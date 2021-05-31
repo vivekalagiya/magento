@@ -1,0 +1,55 @@
+<?php
+$collection = $this->getCollection();
+$columns = $this->getColumns();
+//echo "<pre>";
+
+?>
+
+<div class="grid">
+    <div class="hor-scroll">
+        <table cellspacing="0" class="data">
+            <?php foreach ($columns as $key => $column) : ?>
+                <col width="<?php echo $column['width'] ?>" />
+            <?php endforeach; ?>
+                <col width="50" />
+                <col width="50" />
+            <thead>
+                <tr class="headings">
+                    <?php foreach ($columns as $key => $column) : ?>
+                        <th><span class="nobr"><a href="#" name="<?php echo $key ?>" title="asc" class="not-sort"><span class="sort-title"><?php echo $column['header'] ?></span></a></span></th>
+                    <?php endforeach; ?>
+                    <th><span class="nobr">Total</span></th>
+                    <th><span class="nobr">Delete</span></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if($collection->getData()): ?>
+            <?php foreach ($collection as $row): ?>
+                <tr title="#">
+                    <td class=" "> <?php echo $row->getName() ?> </td>
+                    <td class=" "> <?php echo $row->getSku() ?> </td>
+                    <td class=" "> <?php echo $row->getPrice() ?></td>
+                    <td class=" "><input type="number" min="0" required required name="quantity[<?php echo $row->getId() ?>]" value="<?php echo $row->getQuantity() ?>" class="input-text"></td>
+                    <td class=" "> <strong><?php echo ($row->getPrice()*$row->getQuantity()) ?> </strong></td>
+                    <td class=" "><button name="delete[<?php echo $row->getId() ?>]" title="Delete" type="submit" class="scalable" onclick="deleteItem()"><span>Delete</span></button></td>
+                </tr>
+            <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="7" class="empty-text a-center"><?php echo $this->helper('order')->__('No record found') ?></td>
+                </tr>
+            <?php endif; ?>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<script>
+
+function deleteItem(){
+    $url = "<?= $this->getUrl('*/*/deleteItem') ?>";
+    document.cartForm.action = $url;
+}
+
+</script>

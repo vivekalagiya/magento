@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+
+<config>
+    <modules>
+        <Ccc_Order>
+            <version>1.0.0</version>
+        </Ccc_Order>
+    </modules>
+    <global>
+        <blocks>
+            <order>
+                <class>Ccc_Order_Block</class>
+            </order>
+            <order_admin>
+                <class>Ccc_Order_Block_Adminhtml</class>
+            </order_admin>
+        </blocks>
+        <models>
+            <order>
+                <class>Ccc_Order_Model</class>
+                <resourceModel>order_resource</resourceModel>
+            </order>
+
+            <order_resource>
+                <class>Ccc_Order_Model_Resource</class>
+                <entities>
+                    <cart>
+                        <table>cart</table>
+                    </cart>
+                    <cart_item>
+                        <table>cart_item</table>
+                    </cart_item>
+                    <cart_address>
+                        <table>cart_address</table>
+                    </cart_address>
+                    <order>
+                        <table>order</table>
+                    </order>
+                    <order_item>
+                        <table>order_item</table>
+                    </order_item>
+                    <order_address>
+                        <table>order_address</table>
+                    </order_address>
+                </entities>
+            </order_resource>
+        </models>
+
+        <resources>
+            <order_setup>
+                <setup>
+                    <module>Ccc_Order</module>
+                </setup>
+            </order_setup>
+        </resources>
+
+        <helpers>
+            <order>
+                <class>Ccc_Order_helper</class>
+            </order>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <ccc_order>Ccc_Order_Adminhtml</ccc_order>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <order>
+                    <file>order.xml</file>
+                </order>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

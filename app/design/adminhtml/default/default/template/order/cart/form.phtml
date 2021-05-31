@@ -1,0 +1,93 @@
+<h3 class="icon-head head-adminhtml-vendor-attribute"><?php echo $this->getHeaderText(); ?></h3>
+<hr><br>
+
+<form name="cartForm" method='post' action="<?php echo $this->getUrl('*/*/save'); ?>" >  
+  <?php echo $this->getBlockHtml('formkey'); ?>
+<button id="" title="Cancel" type="button" class="scalable cancel" onclick="alert('You Wont To Cancle The Order');" style=""><span><span><span>Cancel</span></span></span></button>	
+<button id="" title="Submit Order" type="submit" class="scalable save" onclick="placeOrder()" style=""><span><span><span>Submit Order</span></span></span></button>
+  <table style="width: 100%" cellspacing="2">
+  	<tbody>
+  		<tr>
+  			<td>
+               <br><br>
+  			</td>
+  		</tr>
+  	  <tr>
+  	  	<td colspan="2" style="padding: 10px">
+  	      <?php echo $this->getChildHtml('product'); ?>
+  	  	</td>
+  	  </tr>
+     
+      <tr>
+        <td>
+               <br>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" style="padding: 10px">
+          <?php echo $this->getChild('cartItem')->setCart($this->getCart())->toHtml(); ?>
+        </td>
+      </tr>	
+
+      <tr>
+        <td style="padding: 10px">
+           <?php echo $this->getChild('account')->setCart($this->getCart())->toHtml();?>
+        </td>
+        <td>
+        </td>
+      </tr>
+  	 
+      <tr>
+  	  	<td style="padding: 10px" width="50%">
+  	      <?php echo $this->getChild('billingAddress')->setCart($this->getCart())->toHtml(); ?>
+  	  	</td>
+  	  	<td style="padding: 10px" width="50%">
+  	      <?php echo $this->getChild('shippingAddress')->setCart($this->getCart())->toHtml(); ?>
+  	     </td>  		
+  	  </tr>
+      
+       <tr>
+        <td>
+               <br>
+        </td>
+      </tr> 
+  	
+      <tr>
+  	  	<td style="padding: 10px">
+  	  		<?php echo $this->getChild('paymentMethod')->setCart($this->getCart())->toHtml(); ?>
+  	  	</td> 
+         <td style="padding: 10px">
+  	  		<?php echo $this->getChild('shipmentMethod')->setCart($this->getCart())->toHtml(); ?>
+  	  	</td>
+
+  	  </tr>
+      
+       <tr>
+        <td>
+               <br>
+        </td>
+      </tr> 
+  	 
+      <tr>
+  	  	<td>
+  	  		
+  	  	</td>
+  	  	<td style="padding: 10px">
+  	  		<?php echo $this->getChild('cartTotal')->setCart($this->getCart())->toHtml();?>
+  	  	</td>
+  	  </tr>
+  	 </tbody> 
+  </table>	
+
+</form>
+
+
+<script type="text/javascript">
+
+function placeOrder(){
+  $url = "<?= $this->getUrl('*/*/placeOrder') ?>";
+  document.cartForm.action = $url;
+}
+  
+</script>

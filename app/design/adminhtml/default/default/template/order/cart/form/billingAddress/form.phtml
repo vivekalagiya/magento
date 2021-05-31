@@ -1,0 +1,74 @@
+<?php $billingAddress = $this->getBillingAddress(); ?>
+<?php 
+// echo '<pre>';
+// print_r($billingAddress);
+?>
+<?php $countries = $this->getCountries(); ?>
+<div class="order-address" id="order-billing_address_fields">
+    <div class="content">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                    <tr>
+                        <td class="label"><label for="name">First Name <span class="required">*</span></label></td>
+                        <td class="value">
+                            <input id="name" name="billing[firstname]" value="<?php echo $billingAddress->getFirstname() ?>" class=" required-entry input-text required-entry" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="name">Middle Name</label></td>
+                        <td class="value">
+                            <input id="name" name="billing[middlename]" value="<?php echo $billingAddress->getMiddlename() ?>" class=" input-text" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="name">Last Name <span class="required">*</span></label></td>
+                        <td class="value">
+                            <input id="name" name="billing[lastname]" value="<?php echo $billingAddress->getLastname() ?>" class=" required-entry input-text required-entry" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="street">Street <span class="required">*</span></label></td>
+                        <td class="value">
+                            <div class="multi-input"><input id="street" name="billing[street]" value="<?php echo $billingAddress->getStreet()  ?>" class="input-text required-entry" type="text">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="city">City <span class="required">*</span></label></td>
+                        <td class="value">
+                            <input id="city" name="billing[city]" value="<?php echo $billingAddress->getCity()  ?>" class=" required-entry input-text required-entry" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="state">State <span class="required">*</span></label></td>
+                        <td class="value">
+                            <input id="state" name="billing[state]" value="<?php echo $billingAddress->getState()  ?>" class=" required-entry input-text required-entry" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="zipcode">Zipcode <span class="required">*</span></label></td>
+                        <td class="value">
+                            <input id="zipcode" name="billing[zipcode]" value="<?php echo $billingAddress->getZipcode()  ?>" class=" required-entry input-text required-entry" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="country_id">Country <span class="required">*</span></label></td>
+                        <td class="value">
+                            <select id="country_id" name="billing[country]" class="required-entry required-entry select">
+                                <?php foreach ($countries as $country) : ?>
+                                    <option value="<?php echo $country['value'] ?>" <?php if ($country['value'] == $billingAddress->getCountry()) : ?>selected<?php endif; ?>><?php echo $country['label'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="order-save-in-address-book">
+        <input name="billing[save_in_billing_address]" type="checkbox" id="save-in-billing-address-book" value="1">
+        <label for="save-in-billing-address-book">Save in address book</label>
+    </div>
+
+</div>

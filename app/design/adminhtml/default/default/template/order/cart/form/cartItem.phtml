@@ -1,0 +1,31 @@
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-cart"><?php echo $this->getHeaderText() ?></h4>
+        <div class="form-buttons"><button type="button" class="scalable add" onclick="getProductBlock()" ><span><span><span>Add Product</span></span></span></button></div>
+    </div>
+    <div class="fieldset"> 
+        <?php echo $this->getChild('cartItemGrid')->setCart($this->getCart())->toHtml(); ?>
+        <div>
+            <div class="a-right"><button type="submit" id="id_d4ffc0d628011728a4bc8a9064fd28c5" title="Update Items and Qty's" type="button" class="scalable " onclick="updateItem()" style=""><span><span><span>Update Items and Qty's</span></span></span></button></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+function getProductBlock(){
+    $url = "<?= $this->getUrl('*/*/addItemToCart') ?>";
+    document.cartForm.action = "<?= $this->getUrl('*/*/addItemToCart'); ?>";
+    document.getElementById('product').style.display = "block";
+    return false;
+}    
+
+function updateItem(){
+    $url = "<?= $this->getUrl('*/*/updateItemQuantity') ?>";
+    document.cartForm.action = $url;
+}
+
+
+
+</script>
