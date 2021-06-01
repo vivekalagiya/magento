@@ -1,4 +1,10 @@
 <?php $shippingAddress = $this->getCart()->getShippingAddress(); ?>
+<?php 
+$street  = $shippingAddress->getStreet();
+if(is_array($street)){
+    $street = $street[0];
+}
+?>
 <?php $countries = $this->getCountries(); ?>
 
 <input type="checkbox" id="order-shipping_as_billing" name="shipping[shipping_as_billing]" value="1" checked="">
@@ -28,9 +34,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="label"><label for="address">Address <span class="required">*</span></label></td>
+                        <td class="label"><label for="street">Street <span class="required">*</span></label></td>
                         <td class="value">
-                            <div class="multi-input"><input id="address" name="shipping[address]" value="<?php echo $shippingAddress->getStreet()  ?>" class="input-text required-entry" type="text">
+                            <div class="multi-input"><input id="street" name="shipping[street]" value="<?php echo $street ?>" class="input-text required-entry" type="text">
                             </div>
                         </td>
                     </tr>

@@ -61,12 +61,12 @@ class Ccc_Order_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Widget_G
             'currency' => 'base_currency_code',
         ));
 
-        $this->addColumn('discount', array(
-            'header' => Mage::helper('order')->__('Discount'),
-            'index' => 'discount',
-            'type'  => 'currency',
-            'currency' => 'order_currency_code',
-        ));
+        // $this->addColumn('discount', array(
+        //     'header' => Mage::helper('order')->__('Discount'),
+        //     'index' => 'discount',
+        //     'type'  => 'currency',
+        //     'currency' => 'order_currency_code',
+        // ));
 
         // $this->addColumn('status', array(
         //     'header' => Mage::helper('order')->__('Status'),

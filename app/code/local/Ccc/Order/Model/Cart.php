@@ -149,15 +149,15 @@ class Ccc_Order_Model_Cart extends Mage_Core_Model_Abstract
 
     }
 
-    
-
     public function getCartTotal()
     {
         $items = $this->getItems();
         $price = 0;
         foreach ($items as $item) {
+
             $productId = $item->getProductId();
             $product = Mage::getModel('catalog/product')->load($productId);
+            $item->setPrice($product->getPrice())->save();
             $price += $product->getPrice() * $item->getQuantity();
             
         }

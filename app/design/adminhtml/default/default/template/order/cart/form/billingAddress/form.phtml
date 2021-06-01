@@ -1,7 +1,9 @@
 <?php $billingAddress = $this->getBillingAddress(); ?>
 <?php 
-// echo '<pre>';
-// print_r($billingAddress);
+$street  = $billingAddress->getStreet();
+if(is_array($street)){
+    $street = $street[0];
+}
 ?>
 <?php $countries = $this->getCountries(); ?>
 <div class="order-address" id="order-billing_address_fields">
@@ -30,7 +32,7 @@
                     <tr>
                         <td class="label"><label for="street">Street <span class="required">*</span></label></td>
                         <td class="value">
-                            <div class="multi-input"><input id="street" name="billing[street]" value="<?php echo $billingAddress->getStreet()  ?>" class="input-text required-entry" type="text">
+                            <div class="multi-input"><input id="street" name="billing[street]" value="<?php echo $street  ?>" class="input-text required-entry" type="text">
                             </div>
                         </td>
                     </tr>

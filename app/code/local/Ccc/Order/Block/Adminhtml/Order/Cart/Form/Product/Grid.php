@@ -10,9 +10,8 @@ class Ccc_Order_Block_Adminhtml_Order_Cart_Form_Product_Grid extends Mage_Adminh
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
-        // $this->setUseAjax(true);
+        $this->setUseAjax(true);
         // $this->setVarNameFilter('product_filter');
-
     }
 
     protected function _getStore()
@@ -129,6 +128,11 @@ class Ccc_Order_Block_Adminhtml_Order_Cart_Form_Product_Grid extends Mage_Adminh
         ));
 
        return $this;
+    }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', array('_current'=>true));
     }
 
 }
