@@ -5,6 +5,11 @@ class Ccc_Order_Block_Adminhtml_Order_Cart_Form extends Mage_Adminhtml_Block_Tem
 
     protected $cart;
 
+    public function getHeaderText()
+    {
+        return Mage::helper('order')->__('Create New Order');
+    }
+
     public function setCart(Ccc_Order_Model_Cart $cart)
     {
         $this->cart = $cart;
