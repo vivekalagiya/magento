@@ -124,7 +124,8 @@ class Ccc_Order_Block_Adminhtml_Order_Cart_Form_Product_Grid extends Mage_Adminh
 
         $this->getMassactionBlock()->addItem('addToCart', array(
              'label'=> Mage::helper('order')->__('Add To Cart'),
-             'url'  => $this->getUrl('*/*/addToCart')
+             'url'  => $this->getUrl('*/*/addToCart'),
+             'selected' => true
         ));
 
        return $this;
