@@ -6,20 +6,20 @@
                     <td style="" class="a-right" colspan="1">
                         Subtotal    </td>
                     <td style="" class="a-right">
-                        <span class="price"><?= $this->getOrder()->getOrderTotal(); ?></span>    </td>
+                        <span class="price">$<?= $this->getOrder()->getOrderTotal(); ?></span>    </td>
                 </tr>
                 <tr>
                     <td style="" class="a-right" colspan="1">
                         Shipping Total    </td>
                     <td style="" class="a-right">
-                        <span class="price"><?= $this->getOrder()->getShippingAmount(); ?></span>    </td>
+                        <span class="price">$<?= $this->getOrder()->getShippingAmount(); ?></span>    </td>
                 </tr>
                 <tr>
                     <td style="" class="a-right" colspan="1">
                         <strong>Grand Total</strong>
                     </td>
                     <td style="" class="a-right">
-                        <strong><span class="price"><?= $this->getOrder()->getGrandTotal(); ?></span></strong>
+                        <strong><span class="price">$<?= $this->getOrder()->getGrandTotal(); ?></span></strong>
                     </td>
                 </tr>
             </tbody>

@@ -119,8 +119,8 @@ class Ccc_Order_Model_Order extends Mage_Core_Model_Abstract
             return false;   
         }
         $address = Mage::getModel('order/order_address')->getResourceCollection()
-        ->addFieldToFilter('address_type', ['eq' => 'billing'])
-        ->addFieldToFilter('order_id', ['eq' => $this->order_id]);
+            ->addFieldToFilter('address_type', ['eq' => 'billing'])
+            ->addFieldToFilter('order_id', ['eq' => $this->order_id]);
         
         $billingAddress = $address->getFirstItem();
         
@@ -140,10 +140,8 @@ class Ccc_Order_Model_Order extends Mage_Core_Model_Abstract
             return false;   
         }
         $address = Mage::getModel('order/order_address')->getResourceCollection()
-                    ->addFieldToFilter('address_type', ['eq' => 'shipping'])
-                    ->addFieldToFilter('order_id', ['eq' => $this->order_id]);
-        echo '<pre>';
-        print_r($address->getFirstItem());die;
+            ->addFieldToFilter('address_type', ['eq' => 'shipping'])
+            ->addFieldToFilter('order_id', ['eq' => $this->order_id]);
         return $shippingAddress = $address->getFirstItem();
 
     }
