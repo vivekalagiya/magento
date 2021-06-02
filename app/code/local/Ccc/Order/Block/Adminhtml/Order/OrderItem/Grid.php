@@ -1,12 +1,12 @@
 <?php
 
-class Ccc_Order_Block_Adminhtml_Order_CartItem_Grid extends Mage_Adminhtml_Block_Widget_Grid 
+class Ccc_Order_Block_Adminhtml_Order_OrderItem_Grid extends Mage_Adminhtml_Block_Widget_Grid 
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->setId('cartItemGrid');
+        $this->setId('orderItemGrid');
         $this->setDefaultSort('item_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
@@ -23,10 +23,10 @@ class Ccc_Order_Block_Adminhtml_Order_CartItem_Grid extends Mage_Adminhtml_Block
 
     protected function _prepareCollection()
     {
-        $cartId = $this->getCart()->getId();
+        $orderId = $this->getOrder()->getId();
         $store = $this->_getStore();
-        $collection = Mage::getModel('order/cart_item')->getCollection()
-            ->addFieldToFilter('cart_id',['eq' => $cartId]);
+        $collection = Mage::getModel('order/order_item')->getCollection()
+            ->addFieldToFilter('order_id',['eq' => $orderId]);
 
         $this->setCollection($collection);
 

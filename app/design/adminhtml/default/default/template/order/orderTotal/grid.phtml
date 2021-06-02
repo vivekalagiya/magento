@@ -1,5 +1,3 @@
-<form name="cartForm" method='post' action="<?php echo $this->getUrl('*/*/placeOrder'); ?>" >  
-<?php echo $this->getBlockHtml('formkey'); ?>
 <div id="order-totals" class="order-totals">
     <div>
         <table cellspacing="0" cellpadding="8" width="100%">
@@ -8,28 +6,24 @@
                     <td style="" class="a-right" colspan="1">
                         Subtotal    </td>
                     <td style="" class="a-right">
-                        <span class="price"><?= $this->getCart()->getCartTotal(); ?></span>    </td>
+                        <span class="price"><?= $this->getOrder()->getOrderTotal(); ?></span>    </td>
                 </tr>
                 <tr>
                     <td style="" class="a-right" colspan="1">
                         Shipping Total    </td>
                     <td style="" class="a-right">
-                        <span class="price"><?= $this->getCart()->getShippingAmount(); ?></span>    </td>
+                        <span class="price"><?= $this->getOrder()->getShippingAmount(); ?></span>    </td>
                 </tr>
                 <tr>
                     <td style="" class="a-right" colspan="1">
                         <strong>Grand Total</strong>
                     </td>
                     <td style="" class="a-right">
-                        <strong><span class="price"><?= $this->getCart()->getGrandTotal(); ?></span></strong>
+                        <strong><span class="price"><?= $this->getOrder()->getGrandTotal(); ?></span></strong>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="divider"></div>
-        <div class="order-totals-bottom">
-            
-                <p><button id="id_b41fc707a2c7d1b11f485e2a5ff2e8d8" title="Submit Order" type="submit" class="scalable save"  href="<?= $this->getUrl('*/*/placeOrder'); ?>" style=""><span><span><span>Submit Order</span></span></span></button></p>
-        </div>
+       
     </div>
 </div>

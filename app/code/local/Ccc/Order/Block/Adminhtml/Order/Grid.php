@@ -31,7 +31,7 @@ class Ccc_Order_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Widget_G
     {
 
         $this->addColumn('order_id', array(
-            'header'=> Mage::helper('sales')->__('Order #'),
+            'header'=> Mage::helper('order')->__('Order #'),
             'width' => '80px',
             'type'  => 'text',
             'index' => 'order_id',
@@ -76,32 +76,25 @@ class Ccc_Order_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Widget_G
         //     'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
         // ));
 
-        if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
-            $this->addColumn('action',
-                array(
-                    'header'    => Mage::helper('sales')->__('Action'),
-                    'width'     => '50px',
-                    'type'      => 'action',
-                    'getter'     => 'getId',
-                    'actions'   => array(
-                        array(
-                            'caption' => Mage::helper('sales')->__('View'),
-                            'url'     => array('base'=>'*/sales_order/view'),
-                            'field'   => 'order_id',
-                            'data-column' => 'action',
-                        )
-                    ),
-                    'filter'    => false,
-                    'sortable'  => false,
-                    'index'     => 'stores',
-                    'is_system' => true,
-            ));
-        }
-        $this->addRssList('rss/order/new', Mage::helper('sales')->__('New Order RSS'));
-
-        $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
-        $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel XML'));
-
+        $this->addColumn('action',
+            array(
+                'header'    => Mage::helper('order')->__('Action'),
+                'width'     => '50px',
+                'type'      => 'action',
+                'getter'     => 'getId',
+                'actions'   => array(
+                    array(
+                        'caption' => Mage::helper('order')->__('View'),
+                        'url'     => array('base'=>'*/order/view'),
+                        'field'   => 'order_id',
+                        'data-column' => 'action',
+                    )
+                ),
+                'filter'    => false,
+                'sortable'  => false,
+                'index'     => 'stores',
+                'is_system' => true,
+        ));
         return parent::_prepareColumns();
     }
 

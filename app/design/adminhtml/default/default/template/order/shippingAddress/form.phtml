@@ -1,12 +1,12 @@
-<?php $billingAddress = $this->getBillingAddress(); ?>
+<?php $shippingAddress = $this->getOrder()->getShippingAddress(); ?>
 <?php 
-$street  = $billingAddress->getStreet();
+$street  = $shippingAddress->getStreet();
 if(is_array($street)){
     $street = $street[0];
 }
 ?>
 <?php $countries = $this->getCountries(); ?>
-<div class="order-address" id="order-billing_address_fields">
+<div class="order-address" id="order-shipping_address_fields">
     <div class="content">
         <div class="hor-scroll">
             <table cellspacing="0" class="form-list">
@@ -14,52 +14,52 @@ if(is_array($street)){
                     <tr>
                         <td class="label"><label for="name">First Name <span class="required">*</span></label></td>
                         <td class="value">
-                            <input id="name" name="billing[firstname]" value="<?php echo $billingAddress->getFirstname() ?>" class=" required-entry input-text required-entry" type="text" required>
+                            <input id="name" name="shipping[firstname]" value="<?php echo $shippingAddress->getFirstname() ?>" class=" required-entry input-text required-entry" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td class="label"><label for="name">Middle Name</label></td>
                         <td class="value">
-                            <input id="name" name="billing[middlename]" value="<?php echo $billingAddress->getMiddlename() ?>" class=" input-text" type="text">
+                            <input id="name" name="shipping[middlename]" value="<?php echo $shippingAddress->getMiddlename() ?>" class=" input-text" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td class="label"><label for="name">Last Name <span class="required">*</span></label></td>
                         <td class="value">
-                            <input id="name" name="billing[lastname]" value="<?php echo $billingAddress->getLastname() ?>" class=" required-entry input-text required-entry" type="text" required>
+                            <input id="name" name="shipping[lastname]" value="<?php echo $shippingAddress->getLastname() ?>" class=" required-entry input-text required-entry" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td class="label"><label for="street">Street <span class="required">*</span></label></td>
                         <td class="value">
-                            <div class="multi-input"><input id="street" name="billing[street]" value="<?php echo $street  ?>" class="input-text required-entry" type="text" required>
+                            <div class="multi-input"><input id="street" name="shipping[street]" value="<?php echo $street ?>" class="input-text required-entry" type="text">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="label"><label for="city">City <span class="required">*</span></label></td>
                         <td class="value">
-                            <input id="city" name="billing[city]" value="<?php echo $billingAddress->getCity()  ?>" class=" required-entry input-text required-entry" type="text" required>
+                            <input id="city" name="shipping[city]" value="<?php echo $shippingAddress->getCity()  ?>" class=" required-entry input-text required-entry" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td class="label"><label for="state">State <span class="required">*</span></label></td>
                         <td class="value">
-                            <input id="state" name="billing[state]" value="<?php echo $billingAddress->getState()  ?>" class=" required-entry input-text required-entry" type="text" required>
+                            <input id="state" name="shipping[state]" value="<?php echo $shippingAddress->getState()  ?>" class=" required-entry input-text required-entry" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td class="label"><label for="zipcode">Zipcode <span class="required">*</span></label></td>
                         <td class="value">
-                            <input id="zipcode" name="billing[zipcode]" value="<?php echo $billingAddress->getZipcode()  ?>" class=" required-entry input-text required-entry" type="text" required>
+                            <input id="zipcode" name="shipping[zipcode]" value="<?php echo $shippingAddress->getZipcode()  ?>" class=" required-entry input-text required-entry" type="text">
                         </td>
                     </tr>
                     <tr>
                         <td class="label"><label for="country_id">Country <span class="required">*</span></label></td>
                         <td class="value">
-                            <select id="country_id" name="billing[country]" class="required-entry required-entry select" required>
+                            <select id="country_id" name="shipping[country]" class="required-entry required-entry select">
                                 <?php foreach ($countries as $country) : ?>
-                                    <option value="<?php echo $country['value'] ?>" <?php if ($country['value'] == $billingAddress->getCountry()) : ?>selected<?php endif; ?>><?php echo $country['label'] ?></option>
+                                    <option value="<?php echo $country['value'] ?>" <?php if ($country['value'] == $shippingAddress->getCountry()) : ?>selected<?php endif; ?>><?php echo $country['label'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </td>
@@ -67,10 +67,6 @@ if(is_array($street)){
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="order-save-in-address-book">
-        <input name="billing[save_in_billing_address]" type="checkbox" id="save-in-billing-address-book" value="1">
-        <label for="save-in-billing-address-book">Save in address book</label>
     </div>
 
 </div>

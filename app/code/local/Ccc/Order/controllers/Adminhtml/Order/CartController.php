@@ -95,11 +95,21 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
     public function updateItemQuantityAction()
     {
         $cart = $this->_getCart();
-        $postData = $this->getRequest()->getPost();
-        foreach ($postData['quantity'] as $item_id => $quantity) {
-            $cart->getItem()->load($item_id)
-            ->setQuantity($quantity)
-            ->save();
+        $postData = $this->getRequest()->getPost('quantity');
+        if(!$postData){
+            Mage::getSingleton('order/session')->addError('Add atleast one item to cart.');
+            $this->_redirect('*/*/');
+            return false;
+        }
+        foreach ($postData as $itemId => $quantity) {
+            if($quantity == 0){
+                $cart->getItem()->load($itemId)
+                    ->delete();
+            } else {
+                $cart->getItem()->load($itemId)
+                    ->setQuantity($quantity)
+                    ->save();
+            }
         }
         Mage::getSingleton('order/session')->addSuccess('Item quantity updated successfully.');
         $this->_redirect('*/*/');
@@ -130,7 +140,7 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         }
         $this->_redirect('*/*/');
     }
-        
+    
     public function saveShippingAddressAction()
     {
         $postData = $this->getRequest()->getPost('shipping');
@@ -138,22 +148,22 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         if($postData['shipping_as_billing']){
             $billingAddress = $cart->getBillingAddress();
             $shippingAddress = $cart->getShippingAddress()
-                ->setCartId($cart->getId())
-                ->setFirstname($billingAddress->getFirstname())
-                ->setMiddlename($billingAddress->getMiddlename())
-                ->setLastname($billingAddress->getLastname())
-                ->setStreet($billingAddress->getStreet())
-                ->setCity($billingAddress->getCity())
-                ->setState($billingAddress->getState())
-                ->setCountry($billingAddress->getCountry())
-                ->setZipcode($billingAddress->getZipcode())
-                ->setAddressType('shipping');
+            ->setCartId($cart->getId())
+            ->setFirstname($billingAddress->getFirstname())
+            ->setMiddlename($billingAddress->getMiddlename())
+            ->setLastname($billingAddress->getLastname())
+            ->setStreet($billingAddress->getStreet())
+            ->setCity($billingAddress->getCity())
+            ->setState($billingAddress->getState())
+            ->setCountry($billingAddress->getCountry())
+            ->setZipcode($billingAddress->getZipcode())
+            ->setAddressType('shipping');
             $shippingAddress->save();
         } else {
             $shippingAddress = $cart->getShippingAddress()
-                ->addData($postData)
-                ->setCartId($cart->getId())
-                ->setAddressType('shipping');
+            ->addData($postData)
+            ->setCartId($cart->getId())
+            ->setAddressType('shipping');
             $shippingAddress->save();
         }
         if($postData['save_in_shipping_address']){
@@ -163,10 +173,10 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
                 $customerAddress = Mage::getModel('customer/address')->load($cart->getCustomerId(), 'parent_id');
             }
             $customerAddress->addData($shippingAddress->getData())
-                ->setParentId($cart->getCustomerId())
-                ->setRegion($shippingAddress->getState())
-                ->setPostcode($shippingAddress->getZipcode())
-                ->setIsDefaultShipping(1);
+            ->setParentId($cart->getCustomerId())
+            ->setRegion($shippingAddress->getState())
+            ->setPostcode($shippingAddress->getZipcode())
+            ->setIsDefaultShipping(1);
             $customerAddress->save();
         }
         $this->_redirect('*/*/');
@@ -184,66 +194,99 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
     public function saveShipmentMethodAction()
     {
         $postData = $this->getRequest()->getPost('shippingMethod');
-        $postData = explode('_', $postData);
+        $postData = explode('_', $postData[0]);
         $shipmentMethodCode = $postData[0];
         $shippingAmount = $postData[1];
         
         $cart = $this->_getCart();
         $cart->setShippingMethodCode($shipmentMethodCode)
-            ->setShippingAmount($shippingAmount);
-            $cart->save();
-            $this->_redirect('*/*/');
-        }
-        
-        public function deleteItemAction()
-        {
-            $item_id = array_key_first($this->getRequest()->getPost('delete'));
+        ->setShippingAmount($shippingAmount);
+        $cart->save();
+        $this->_redirect('*/*/');
+    }
+    
+    public function deleteItemAction()
+    {
+        $itemId = array_key_first($this->getRequest()->getPost('delete'));
             $cart = $this->_getCart();
-            $cart->getItem()->load($item_id)->delete();
+            $cart->getItem()->load($itemId)->delete();
             Mage::getSingleton('order/session')->addSuccess('Item deleted successfully.');
             $this->_redirect('*/*/');
-    }
-
-    public function placeOrderAction()
-    {
-        $cart = $this->_getCart();
-        $order = Mage::getModel('order/order');
-        $order->setData($cart->getData())
-            ->setCreatedAt(date('Y-m-d H:i:s'));
-        $order->save();
-        
-        $items = $cart->getItems();
-        foreach ($items as $item) {
-            $orderItem = Mage::getModel('order/order_item');
-            $orderItem->setData($item->getData())
-            ->setOrderId($order->getId())
-            ->setCreatedAt(date('Y-m-d H:i:s'));
-            $orderItem->save();
-            $item->delete();
         }
         
-        $billingAddress = $cart->getBillingAddress();
-        // echo '<pre>';
-        $orderAddress = Mage::getModel('order/order_address');
-        $orderAddress->setData($billingAddress->getData())
+        public function placeOrderAction()
+        {
+            $cart = $this->_getCart();
+            if(!$this->validateCart()){
+                $this->_redirect('*/*/');
+                return false;
+            }
+            $order = Mage::getModel('order/order');
+            $order->setData($cart->getData())
+            ->setCreatedAt(date('Y-m-d H:i:s'));
+            $order->save();
+            
+            $items = $cart->getItems();
+            foreach ($items as $item) {
+                $orderItem = Mage::getModel('order/order_item');
+                $orderItem->setData($item->getData())
+                ->setItemId(null)
+                ->setOrderId($order->getId())
+                ->setCreatedAt(date('Y-m-d H:i:s'));
+                $orderItem->save();
+                $item->delete();
+            }
+            
+            $billingAddress = $cart->getBillingAddress();
+            $orderAddress = Mage::getModel('order/order_address');
+            $orderAddress->setData($billingAddress->getData())
             ->setAddressId(null)
+            ->setOrderId($order->getId())
+            ->setCustomerId($order->getCustomerId())
             ->setCreatedAt(date('Y-m_d H:i:s'));
-        $orderAddress->save();
-        $billingAddress->delete();
-        // print_r($orderAddress);
-        
-        $shippingAddress = $cart->getShippingAddress();
-        // echo '<pre>';
-        $orderAddress = Mage::getModel('order/order_address');
-        $orderAddress->setData($shippingAddress->getData())
-        ->setAddressId(null)
-        ->setCreatedAt(date('Y-m_d H:i:s'));
-        $orderAddress->save();
-        $shippingAddress->delete();
-        // print_r($orderAddress);
-        $cart->delete();
-        $this->_redirect('*/order/index');
+            $orderAddress->save();
+            $billingAddress->delete();
+            
+            $shippingAddress = $cart->getShippingAddress();
+            $orderAddress = Mage::getModel('order/order_address');
+            $orderAddress->setData($shippingAddress->getData())
+            ->setAddressId(null)
+            ->setOrderId($order->getId())
+            ->setCustomerId($order->getCustomerId())
+            ->setCreatedAt(date('Y-m_d H:i:s'));
+            $orderAddress->save();
+            $shippingAddress->delete();
+            $cart->delete();
+            Mage::getSingleton('order/session')->addSuccess('Order placed successfully.');
+            $this->_redirect('*/order/index');
+            
+    }
 
+    public function validateCart()
+    {
+        $cart = $this->_getCart();
+
+        if(!$cart->getItems()->getData()){
+            Mage::getSingleton('order/session')->addError('Please add atleast one item.');
+            return false;
+        }
+        if(!$cart->getBillingAddress()->getId()){
+            Mage::getSingleton('order/session')->addError('please save billing address.');
+            return false;
+        }
+        if(!$cart->getShippingAddress()->getId()){
+            Mage::getSingleton('order/session')->addError('please save shipping address.');
+            return false;
+        }
+        if(!$cart->getPaymentMethodCode()){
+            Mage::getSingleton('order/session')->addError('please save Payment method.');
+            return false;
+        }
+        if(!$cart->getShippingMethodCode()){
+            Mage::getSingleton('order/session')->addError('please save Shipment method.');
+            return false;
+        }
+        return true;
     }
 
 

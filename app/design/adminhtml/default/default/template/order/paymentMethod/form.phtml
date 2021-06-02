@@ -1,0 +1,13 @@
+<?php $methods = $this->getOrder()->getPaymentMethods(); ?>
+
+<?php $paymentCode = $this->getOrder()->getPaymentMethodCode(); ?>
+
+<div class="entry-edit">
+    <span class="nowrap">
+        <?php foreach ($methods as $key => $value) : ?>
+            <?php if($key == $paymentCode): ?>
+                <?php echo $value->getTitle(); ?><br>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </span>
+</div>

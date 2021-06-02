@@ -1,0 +1,22 @@
+<div id="customer_account_fieds">
+    <div class="fieldset " id="main">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                    <tr>
+                        <td class="label"><label for="name">Name</label></td>
+                        <td class="value">
+                            <?= $this->getOrder()->getCustomer()->getName(); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="email">Email</label></td>
+                        <td class="value">
+                            <?= $this->getOrder()->getCustomer()->getEmail(); ?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

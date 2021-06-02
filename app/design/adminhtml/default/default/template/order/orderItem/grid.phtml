@@ -19,7 +19,6 @@ $columns = $this->getColumns();
                         <th><span class="nobr"><a href="#" name="<?php echo $key ?>" title="asc" class="not-sort"><span class="sort-title"><?php echo $column['header'] ?></span></a></span></th>
                     <?php endforeach; ?>
                     <th><span class="nobr">Total</span></th>
-                    <th><span class="nobr">Delete</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -29,9 +28,8 @@ $columns = $this->getColumns();
                     <td class=" "> <?php echo $row->getName() ?> </td>
                     <td class=" "> <?php echo $row->getSku() ?> </td>
                     <td class=" "> <?php echo $row->getPrice() ?></td>
-                    <td class=" "><input type="number" min="0" required required name="quantity[<?php echo $row->getId() ?>]" value="<?php echo $row->getQuantity() ?>" class="input-text"></td>
+                    <td class=" "> <?php echo $row->getQuantity() ?></td>
                     <td class=" "> <strong><?php echo ($row->getPrice()*$row->getQuantity()) ?> </strong></td>
-                    <td class=" "><button name="delete[<?php echo $row->getId() ?>]" title="Delete" type="submit" class="scalable" onclick="deleteItem()"><span>Delete</span></button></td>
                 </tr>
             <?php endforeach; ?>
             <?php else: ?>
@@ -44,12 +42,3 @@ $columns = $this->getColumns();
         </table>
     </div>
 </div>
-
-<script>
-
-function deleteItem(){
-    $url = "<?= $this->getUrl('*/*/deleteItem') ?>";
-    document.cartItemForm.action = $url;
-}
-
-</script>

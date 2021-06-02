@@ -14,33 +14,33 @@
         </reference>
     </adminhtml_order_new>
 
-    <adminhtml_order_grid>
+    <adminhtml_order_view>
         <reference name="root">
             <block type="order/adminhtml_order_form" template="order/form.phtml" name="content">
-                <block type="order/adminhtml_order_cartItem" template="order/cartItem.phtml" name="cartItem">
-                    <block type="order/adminhtml_order_cartItem_grid" template="order/cartItem/grid.phtml" name="cartItemGrid" />
+                <block type="order/adminhtml_order_orderItem" template="order/orderItem.phtml" name="orderItem">
+                    <block type="order/adminhtml_order_orderItem_grid" template="order/orderItem/grid.phtml" name="orderItemGrid" />
                 </block>
-                <block type="order/adminhtml_order_account" template="order/account.phtml" name="account">
-                    <block type="order/adminhtml_order_account_grid" template="order/account/grid.phtml" name="accountGrid" />
+                <block type="order/adminhtml_order_account" template="order/account.phtml" name="order_account">
+                    <block type="order/adminhtml_order_account_grid" template="order/account/grid.phtml" name="order_accountGrid" />
                 </block>
-                <block type="order/adminhtml_order_billingAddress" template="order/billingAddress.phtml" name="billingAddress">
-                    <block type="order/adminhtml_order_billingAddress_form" template="order/billingAddress/form.phtml" name="billingAddressForm" />
+                <block type="order/adminhtml_order_billingAddress" template="order/billingAddress.phtml" name="order_billingAddress">
+                    <block type="order/adminhtml_order_billingAddress_form" template="order/billingAddress/form.phtml" name="order_billingAddressForm" />
                 </block>
-                <block type="order/adminhtml_order_shippingAddress" template="order/shippingAddress.phtml" name="shippingAddress">
-                    <block type="order/adminhtml_order_shippingAddress_form" template="order/shippingAddress/form.phtml" name="shippingAddressForm" />
+                <block type="order/adminhtml_order_shippingAddress" template="order/shippingAddress.phtml" name="order_shippingAddress">
+                    <block type="order/adminhtml_order_shippingAddress_form" template="order/shippingAddress/form.phtml" name="order_shippingAddressForm" />
                 </block>
-                <block type="order/adminhtml_order_shipmentMethod" template="order/shipmentMethod.phtml" name="shipmentMethod">
-                    <block type="order/adminhtml_order_shipmentMethod_form" template="order/shipmentMethod/form.phtml" name="shipmentMethodForm" />
+                <block type="order/adminhtml_order_shipmentMethod" template="order/shipmentMethod.phtml" name="order_shipmentMethod">
+                    <block type="order/adminhtml_order_shipmentMethod_form" template="order/shipmentMethod/form.phtml" name="order_shipmentMethodForm" />
                 </block>
-                <block type="order/adminhtml_order_paymentMethod" template="order/paymentMethod.phtml" name="paymentMethod">
-                    <block type="order/adminhtml_order_paymentMethod_form" template="order/paymentMethod/form.phtml" name="paymentMethodForm" />
+                <block type="order/adminhtml_order_paymentMethod" template="order/paymentMethod.phtml" name="order_paymentMethod">
+                    <block type="order/adminhtml_order_paymentMethod_form" template="order/paymentMethod/form.phtml" name="order_paymentMethodForm" />
                 </block>
-                <block type="order/adminhtml_order_cartTotal" template="order/cartTotal.phtml" name="cartTotal">
-                    <block type="order/adminhtml_order_cartTotal_grid"  template="order/cartTotal/grid.phtml" name="cartTotalGrid" />
+                <block type="order/adminhtml_order_orderTotal" template="order/orderTotal.phtml" name="orderTotal">
+                    <block type="order/adminhtml_order_orderTotal_grid"  template="order/orderTotal/grid.phtml" name="orderTotalGrid" />
                 </block>
             </block>
         </reference>
-    </adminhtml_order_grid>
+    </adminhtml_order_view>
 
     <adminhtml_order_cart_index>
         <reference name="root">

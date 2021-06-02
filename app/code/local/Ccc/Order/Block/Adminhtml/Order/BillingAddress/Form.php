@@ -3,61 +3,25 @@
 class Ccc_Order_Block_Adminhtml_Order_BillingAddress_Form extends Mage_Adminhtml_Block_Template
 {
 
-    protected $cart;
+    protected $order;
 
-    public function setCart(Ccc_Order_Model_Cart $cart)
+    public function setOrder(Ccc_Order_Model_Order $order)
     {
-        $this->cart = $cart;
+        $this->order = $order;
         return $this;
     }
 
-    public function getCart()
+    public function getOrder()
     {
-        if(!$this->cart){
-            $this->setCart(Mage::getModel('order/cart'));
+        if(!$this->order){
+            $this->setOrder(Mage::getModel('order/order'));
         }
-        return $this->cart;
+        return $this->order;
     }
 
     public function getCountries()
     {
         return Mage::getModel('adminhtml/system_config_source_country')->toOptionArray();
-    }
-
-    public function getBillingAddress()
-    {
-        
-        $billingAddress = $this->getCart()->getBillingAddress();
-        
-        if(!$billingAddress->getId()) {
-            $customerId = $this->getCart()->getCustomerId();
-            $customer = Mage::getModel('customer/customer')->load($customerId);
-            $billingAddress = $customer->getDefaultBillingAddress();
-        }
-
-        if(!$billingAddress){
-            $billingAddress = Mage::getModel('order/cart_address');
-        }
-        return $billingAddress;
-    }
-
-    public function getShippingAddress()
-    {
-        
-        $shippingAddress = $this->getCart()->getShippingAddress();
-        
-        if(!$shippingAddress->getId()) {
-            $customerId = $this->getCart()->getCustomerId();
-            $customer = Mage::getModel('customer/customer')->load($customerId);
-            $shippingAddress = $customer->getDefaultShippingAddress();
-        }
-
-        if(!$shippingAddress){
-            $shippingAddress = Mage::getModel('order/cart_address');
-        }
-        return $shippingAddress;
-    }
-
-    
+    }    
 
 }

@@ -1,18 +1,14 @@
+<form name="cartForm" method='post' action="<?php echo $this->getUrl('*/*/saveBillingAddress'); ?>" >  
+<?php echo $this->getBlockHtml('formkey'); ?>
+
 <div class="entry-edit">
     <div class="entry-edit-head">
         <h4 class="icon-head head-cart"><?php echo $this->getHeaderText() ?></h4>
-        <div class="form-buttons"><button title="Save" type="submit" class="scalable save" onclick="saveBillingAddress()" ><span><span><span>Save</span></span></span></button></div>
+        <div class="form-buttons"><button title="Save" type="submit" class="scalable save" ><span><span><span>Save</span></span></span></button></div>
     </div>
     <div class="fieldset">
         <?php echo $this->getChild('billingAddressForm')->setCart($this->getCart())->toHtml(); ?>
     </div>
 </div>
 
-<script>
-
-function saveBillingAddress(){
-    $url = "<?= $this->getUrl('*/*/saveBillingAddress') ?>";
-    document.cartForm.action = $url;
-}
-
-</script>
+</form>

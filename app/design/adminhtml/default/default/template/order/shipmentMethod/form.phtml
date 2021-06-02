@@ -1,0 +1,12 @@
+<?php $shippingMethods = $this->getOrder()->getShipmentMethods(); ?>
+<?php $shippingCode = $this->getOrder()->getShippingMethodCode(); ?>
+
+<div class="entry-edit">
+    <span class="nowrap">
+        <?php foreach ($shippingMethods as $key => $value) : ?>
+            <?php if($key == $shippingCode): ?>
+                <?php echo $value->getconfigData('title'). ' '; ?><strong>$<?php if($value->getconfigData('price')){echo $value->getconfigData('price');} else{ echo "0.00"; }?></strong><br>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </span>
+</div>

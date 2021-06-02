@@ -3,7 +3,7 @@
 
 class Ccc_Order_Block_Adminhtml_Order_Account extends Mage_Adminhtml_Block_Template
 {
-    protected $cart;
+    protected $order;
     
     public function getHeaderText()
     {
@@ -11,18 +11,18 @@ class Ccc_Order_Block_Adminhtml_Order_Account extends Mage_Adminhtml_Block_Templ
     }
 
     
-    public function setCart(Ccc_Order_Model_Cart $cart)
+    public function setOrder(Ccc_Order_Model_Order $order)
     {
-        $this->cart = $cart;
+        $this->order = $order;
         return $this;
     }
 
-    public function getCart()
+    public function getOrder()
     {
-        if(!$this->cart){
-            $this->setCart(Mage::getModel('order/cart'));
+        if(!$this->order){
+            $this->setOrder(Mage::getModel('order/order'));
         }
-        return $this->cart;
+        return $this->order;
     }
    
 }
