@@ -1,3 +1,5 @@
+<form name="buttonActionForm" method="post" action="" >
+<?php echo $this->getBlockHtml('formkey'); ?>
 <div class="content-header">
     <div id="order-header">
       <div>
@@ -6,11 +8,11 @@
     </div> 
       <p class="form-buttons">
         <button id="reset_order_top_button" title="Cancel" type="submit" class="scalable cancel" onclick="cancelOrder()" style=""><span><span><span>Cancel</span></span></span></button>
-        <button id="submit_order_top_button" title="Submit Order" type="button" class="scalable save" onclick="placeOrder()" style=""><span><span><span>Submit Order</span></span></span></button>
+        <button id="submit_order_top_button" title="Submit Order" type="submit" class="scalable save" onclick="placeOrder()" style=""><span><span><span>Submit Order</span></span></span></button>
       </p>
 </div>
+</form>
 
-  <?php echo $this->getBlockHtml('formkey'); ?>
   <table style="width: 100%" cellspacing="2">
   	<tbody>
   	  <tr>
@@ -85,12 +87,12 @@
 
 function placeOrder(){
   $url = "<?= $this->getUrl('*/*/placeOrder') ?>";
-  document.cartForm.action = $url;
+  document.buttonActionForm.action = $url;
 }
 
 function cancelOrder(){
   $url = "<?= $this->getUrl('*/order/new') ?>";
-  document.cartForm.action = $url;
+  document.buttonActionForm.action = $url;
 }
   
 </script>
