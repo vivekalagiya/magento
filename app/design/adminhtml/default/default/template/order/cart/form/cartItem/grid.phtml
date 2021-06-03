@@ -28,9 +28,9 @@ $columns = $this->getColumns();
                 <tr title="#">
                     <td class=" "> <?php echo $row->getName() ?> </td>
                     <td class=" "> <?php echo $row->getSku() ?> </td>
-                    <td class=" "> <?php echo $row->getPrice() ?></td>
+                    <td class=" "> $<?php echo $row->getPrice() ?></td>
                     <td class=" "><input type="number" min="0" required required name="quantity[<?php echo $row->getId() ?>]" value="<?php echo $row->getQuantity() ?>" class="input-text"></td>
-                    <td class=" "> <strong><?php echo ($row->getPrice()*$row->getQuantity()) ?> </strong></td>
+                    <td class=" "> <strong>$<?php echo ($row->getPrice()*$row->getQuantity()) ?> </strong></td>
                     <td class=" "><button name="delete[<?php echo $row->getId() ?>]" title="Delete" type="submit" class="scalable" onclick="deleteItem()"><span>Delete</span></button></td>
                 </tr>
             <?php endforeach; ?>
